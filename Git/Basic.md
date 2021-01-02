@@ -85,7 +85,18 @@ Changes to be committed:
 
 * `git restore --staged [파일명]` : 특정 파일 add 취소하기
 
+* 원격저장소(github)에 **폴더** 추가하기
 
+  ```shell
+  $ git status # 상태 확인
+  $ git add [폴더 이름]
+  $ git commit -m "커밋 메시지"
+  $ git push origin master
+  ```
+
+  > 단 새로운 폴더 생성할 시에는 해당 폴더 안에 파일이 1개 이상 있어야 함(진위 여부 나중에 확인하기)
+
+  ​	
 
 ### `git commit -m '커밋메시지'`
 
