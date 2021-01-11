@@ -149,6 +149,52 @@ for key,value in itemlist:
 
 
 
+### (5) 두 개의 딕셔너리로 구성된 것 이쁘게 출력
+
+```python
+dic = {
+    "김혜림":{
+            "나이": 25,
+            "전공": "멀티미디어공학과",
+            "거주지": "서대문구",
+            "메일주소": "rlagpfla1017@naver.com",
+            "취미": "게임"
+    },
+    "김세모": {
+        "나이": 26,
+        "전공": "통계학과",
+        "거주지": "중구",
+        "메일주소": "rlatpah@naver.com",
+        "취미": "독서"
+    },
+    "박네모": {
+        "나이": 23,
+        "전공": "수학과",
+        "거주지": "관악구",
+        "메일주소": "qkrspah@naver.com",
+        "취미": "운동"
+    },
+    "이동글": {
+        "나이": 29,
+        "전공": "경제학과",
+        "거주지": "양천구",
+        "메일주소": "dlehdrmf@naver.com",
+        "취미": "공부"
+    }
+
+}
+
+itemlist = dic.items()
+for name, item in itemlist:
+    print(name + " 팀원의 정보")
+    info = item.items()
+    for info_key, info_value in info:
+        print(info_key+" :", info_value)
+    print()
+```
+
+
+
 ---
 
 
