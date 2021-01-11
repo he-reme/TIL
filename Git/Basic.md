@@ -33,7 +33,7 @@
 
 
 
-## `git status`
+### `git status`
 
 `git` 의 상태를 출력
 
@@ -134,6 +134,12 @@ Changes to be committed:
 ### `git diff [파일명]`
 
 이전 버전과의 차이를 출력
+
+
+
+### `git mv [파일명] [변경할 파일명]`
+
+파일 이름 변경
 
 
 
