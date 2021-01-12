@@ -82,3 +82,173 @@
 
 
 
+---
+
+
+
+## datetime 객체
+
+> 날짜 관련
+
+* `import datetime`
+
+* 사용 예시)
+
+  ```python
+  import datetime
+  now = datetime.date.today()
+  print(now.weekday()) # 1
+  print(now.ctime()) # Tue Jan 12 00:00:00 2021
+  ```
+
+  ```python
+  import datetime
+  christmas = datetime.date(2021, 12, 25)
+  print(christmas.weekday()) # 5
+  print(christmas.ctime()) # Sat Dec 25 00:00:00 2021
+  ```
+
+  * `weekday()` 
+    * `0:월, 1:화, 2:수, 3:목, 4:금, 5:토, 6:일`
+
+
+
+---
+
+
+
+## 출력과 포맷팅
+
+>  포맷팅 : 문자열 사이사이에 다른 정보 삽입하여 조립하는 방법
+
+* 여러가지 방법
+
+```python
+stname = "김"
+stage=26
+stavg=90,123
+
+# string cat
+print(stname+"학생은 나이가"+str(stage)+"이고 평균은"+str(stavg)+"입니다")
+print(stname, "학생은 나이가", stage, "이고 평균은", stavg, "입니다")
+
+# format % value
+print("%s학생은 나이가 %d이고 평균은 %.2f입니다" %(stname, stage, stavg))
+
+# '{}'.format()
+print("{}학생은 나이가 {}이고 평균은 {:2f}입니다".format(stname, stage, stavg))
+
+# f-Strings
+print(f"{stname}학생은 나이가 {stage}이고 평균은 {stavg:.2f}입니다)
+```
+
+
+
+### (1) `format % values`
+
+> 요즘 잘 안씀
+
+* `%[-][폭][.유효자리수]서식`
+
+* * `%`
+  * `-`
+    * `-`를 지정하면 **왼쪽 정렬**
+    * 생략하면, `폭`에 기반하여 **오른쪽 정렬**
+  * `폭`
+    * 생략하면, 변수 크기만큼 준비하여 출력
+  * `.유효자리수`
+    * 소수점 아래 표시 자리수 설정
+    * 생략하면, `6자리`
+  * 서식
+    * `d(정수), f(실수), s(문자열), c(문자 하나), h(16진수), o(8진수), %(% 문자)`
+
+
+
+### (2)`'{}'.format()` (3.0 버전부터)
+
+> 3.0 버전부터
+
+
+
+### (3) `f-Strings`
+
+> 3.6 버전부터 
+>
+> 효능 좋음. 권장.
+
+
+
+---
+
+
+
+## 함수
+
+### (1) 가변 아규먼트
+
+* 매개변수명 앞에 `*`를 붙여서 사용
+
+* `p`는 튜플 형태
+
+  ```python
+  def testFunc(*p):
+      list = []
+      for i in p:
+          list.append(i)
+      return list
+      
+  print(testFunc(2, 1, 2, 3, 4, 5))    #[2, 1, 2, 3, 4, 5]
+  ```
+
+
+
+### (2) 가변 키워드 아규먼트
+
+* 매개변수명 앞에 `**`를 붙여서 사용
+
+* `키=값` 형태로 인자 전달
+
+* `kargs`는 딕셔너리 형태
+
+  ```python
+  def testFunc(a, **kargs) :
+  	print(kargs)    # {'b':2, 'c'=3, 'd'=4, 'e'=5, 'f'=6}
+      for key, value in kargs.items() :
+          print(key, value)
+  
+  testFunc(1, b=2, c=3, d=4, e=5, f=6)    # 'b'=2 처럼 키를 문자열로 쓰면 에러
+  ```
+
+
+
+
+---
+
+
+
+## 패킹
+
+> 변수 앞에 `*`를 붙이는 것
+
+
+
+* 요소 단위로 넘김
+
+* 예시1
+
+  ```python
+  list = [1, 2, 3, 4, 5]
+  print(*list)    # 1 2 3 4 5 로 출력됨 
+  				# = print(list[0], list[1], list[2], list[3], list[4])
+  ```
+
+* 예시2
+
+  ```
+  x, *y, z = [10, 20, 30, 40]
+  print(x)    # 10
+  print(y)    # [20, 30]
+  print(z)    # 40
+  ```
+
+  
