@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML 학습</title>
+</head>
+<body>
+    <h1>주요 HTML 태그 학습</h1>
+
+    <!-- 수평선으로 분리선을 그려주는 태그 -->
+    <hr>
+
+    <!-- 글씨 크기 -->
+    <hr>
+    <h2>제목-2</h2>
+    <h3>제목-3</h3>
+    <h4>제목-4</h4>
+    <h5>제목-5</h5>
+    <h6>제목-6</h6>
+
+    <!-- 링크 -->
+    <hr>
+    <a href="http://www.w3schools.com/">W3C Schools</a>
+    <a href="http://www.w3.org/">W3C</a>
+    <a href="http://www.python.org/">PYTHON</a>
+
+    <!--
+    * 이미지 삽입 (상대 URL)
+    * 해당 링크를 쓰는 웹페이지와 같은 서버한테 이미지를 요청하는 경우,
+      두번째, 세번째 코드처럼 앞부분 생략할 수 있다.
+    -->
+    <hr>
+    <img src="http://localhost:8000/edu/images/olaf.jpg" width="200">
+    <img src="/edu/images/duke.png" width="200">
+    <img src="../images/r4.gif" width="200">
+
+    <!--
+    이미지에 이름 붙이기
+    먼저, figure 태그로 감싸줘야 함
+    -->
+    <hr>
+    <figure>
+        <!-- 이미지 상단 -->
+        <figcaption>울라프</figcaption>
+        <img src="http://localhost:8000/edu/images/olaf.jpg" width="200" height="100">
+    </figure>
+
+    <figure>
+        <!-- 이미지 하단 -->
+        <img src="/edu/images/duke.png" width="100" height="500">
+        <figcaption>듀크</figcaption>
+    </figure>
+    <img src="../images/r4.gif" width="50" height="50">
+
+    <!-- ordered list -->
+    <hr>
+    <h2>좋아하는 음식</h2>
+    <ol>
+        <li>삼겹살</li>
+        <li>떡볶이</li>
+        <li>치킨</li>
+    </ol>
+
+    <!-- unordered list -->
+    <hr>
+    <h2>좋아하는 칼라</h2>
+    <ul>
+        <li>노란색</li>
+        <li>녹색</li>
+        <li>보라색</li>
+    </ul>
+
+    <!-- table 만들기 -->
+    <hr>
+    <h3>주요 css 선택자(selector)</h3>
+    <!-- border 속성 : 선 긋기 -->
+    <table border="1">
+        <!-- tr: 행단위 / th: 제목행 / td: 일반행 -->
+        <tr><th>선택자</th><th>기능</th></tr>
+        <tr><td>태그선택자</td><td>태그명을 가지고 스타일을 적용할 태그를 찾는다.</td></tr>
+        <tr><td>ID선택자</td><td>태그에 정의된 id 속성의 값을 가지고 스타일을 적용할 태그를 찾는다.</td></tr>
+        <tr><td>CLASS선택자</td><td>태그에 정의된 class 속성의 값을 가지고 스타일을 적용할 태그를 찾는다.</td></tr>
+    </table>
+
+    <!-- 동영상 -->
+    <hr>
+    <!--
+    브라우저에 따라 확장자로 mp4를 인식할 수도, ogg를 인식할 수도 있으므로
+    두개를 적어 놓으면 자동으로 인식하여 동영상을 보여줌. (참고: 크롬은 둘 다)
+    -->
+    <video width="720" height="400" controls>
+        <source src="trailer.mp4">
+        <source src="trailer.ogg">
+    </video>
+</body>
+</html>
