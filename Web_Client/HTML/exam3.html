@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML 태그 학습</title>
+</head>
+<body>
+    <h1>HTML의 입력폼 태그</h1>
+
+    <!-- 기본 form 태그 -->
+    <hr>
+    <h2>1. 계정과 패스워드를 입력하세요</h2>
+    <form>
+        계정 <input type="text" name="account" required>
+        패스워드 <input type="password" name="pwd" required>
+        <input type="submit" value="로그인">
+        <input type="reset" value="재작성">
+    </form>
+
+    <!--
+    get 방식 form 태그
+    get 방식은 입력값이 URL에 보임..
+    로그인에 사용하기에 적합하지 않음
+    -->
+    <hr>
+    <h2>2. 계정과 패스워드를 입력하세요 (get방식)</h2>
+    <form method="get" action="http://localhost:8000/edu/serverprogram">
+        계정 <input type="text" name="account" required>
+        패스워드 <input type="password" name="pwd" required>
+        <input type="submit" value="로그인">
+        <input type="reset" value="재작성">
+    </form>
+
+    <!-- check박스, radio박스 -->
+    <hr>
+    <h2>좋아하는 음식과 칼라를 선택하세요</h2>
+    <form method="get" action="http://localhost:8000/edu/serverprogram">
+        좋아하는 음식 (여러 개 선택) : <br>
+        <input type="checkbox" name="food" value="f1">불고기<br>
+        <input type="checkbox" name="food" value="f2">치킨<br>
+        <input type="checkbox" name="food" value="f3" checked>피자<br>
+        <input type="checkbox" name="food" value="f4">짜장면<br><br>
+        좋아하는 칼라 (한 개 선택) : <br>
+        <input type="radio" name="color" value="노란색">노란색<br>
+        <input type="radio" name="color" value="녹색">녹색<br>
+        <input type="radio" name="color" value="주황색">주황색<br><br>
+
+        태어난 년도를 입력하세요 : <br>
+        <input type="number" name="age" min="2000" max="2005"><br>
+        태어난 년도를 선택하세요 : <br>
+        <select name="year">
+            <option value="2000">2000</option>
+            <option value="2001">2000</option>
+            <option value="2002">2002</option>
+            <option value="2003">2003</option>
+            <option value="2004">2004</option>
+        </select><br><br>
+        남기려는 글을 입력하세요 : <br>
+        <textarea name="memo" rows="5" cols="50"></textarea><br>
+        생일을 선택하세요 : <br>
+        <input type="datetime-local" name="birth"><br><br>
+        <input type="date" name="birth"><br><br>
+
+        <input type="submit" value="전송">
+        <input type="reset" value="재작성">
+    </form>
+</body>
+</html>

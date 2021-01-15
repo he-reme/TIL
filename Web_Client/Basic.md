@@ -84,7 +84,7 @@
 ### (1) 기본 세팅
 
 * 포트번호 : `8000`
-* 웹 서버 시작 : `nginx.exe` 
+* 웹 서버 시작 (기동) : `nginx.exe` 
 * 웹 서버 끝 : `nginxstop.bat`
 * 정상적으로 작동하는 지 확인 : `http://localhost/8000/`
 
@@ -99,4 +99,7 @@
 * 실행 방법
   * `C:\KHR\nginx-1.18.0\html\edu` 경로인 경우
     * `http://localhost:8000/edu/first.html`
+      * `localhost` : 내 컴퓨터에서
+      * `8000`: 8000 포트에서 실행되고있는 nginx 서버에 접속하여
+      * edu 폴더의 first.html에 접속..!
 

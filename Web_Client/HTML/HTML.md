@@ -160,13 +160,13 @@
 
 * 가로선
 
-  ````python
+  ````html
   <hr>
   ````
 
 * 글씨 크기
 
-  ```python
+  ```html
   <h1></h1>
   <h2></h2>
   ...
@@ -175,13 +175,13 @@
 
 * 하이퍼링크
 
-  ```python
+  ```html
   <a href="URL"> 클릭 </a>
   ```
 
 * 이미지 출력
 
-  ````python
+  ````html
   <img src="URL" width="100" height="100">
   ````
 
@@ -189,7 +189,7 @@
 
 * 이미지에 이름 붙이기
 
-  ````python
+  ````html
   <figure>
   	<figcaption> 이름 </figcaption>
   	<img src="URL" width="100" height="100">
@@ -200,7 +200,7 @@
 
 * 순서 있는 리스트
 
-  ```python
+  ```html
   <ol>    
   	<li> 고기 </li>
   	<li> 치킨 </li>
@@ -209,7 +209,7 @@
 
 * 순서 없는 리스트
 
-  ```python
+  ```html
   <ul>    
   	<li> 고기 </li>
   	<li> 치킨 </li>
@@ -218,7 +218,7 @@
 
 * 테이블
 
-  ````python
+  ````html
   <table border="">
   	<tr><th>번호</th><th>이름</th></tr>
       <tr><td>1번</td><td>김혜림</td></tr>
@@ -231,7 +231,7 @@
 
 * 동영상 출력
 
-  ```python
+  ```html
   <video width="720" height="400" controls>
   	<source src="동영상.mp4">
       <source src="동영상.ogg">
@@ -240,3 +240,144 @@
 
   * 브라우저에 따라 확장자로 mp4를 인식할 수도, ogg를 인식할 수도 있으므로
     두개를 적어 놓으면 자동으로 인식하여 동영상을 보여줌. (참고: 크롬은 둘 다)
+
+* `<>` 사용하기
+
+  ```html
+  &lt;jQuery도 조금 학습해요&gt;
+  ```
+
+  * HTML에서는 `<>`를 태그로 인식하려고 하기 때문에 없는 태그일 경우
+
+    무시하고 화면에 렌더링 해주지 않음
+
+    따라서 사용하고 싶은 경우, 특수문자 엔터티인 `&lt; &gt;`를 사용한다!
+
+* 개행
+
+  ```html
+  <br>
+  ```
+
+* 단락 지정
+
+  ```html
+  <p>
+  	1단락 입니다.
+  </p>
+  <!-- 여기서 개행 2번 됨 -->
+  <p>
+  	2단락 입니다.
+  </p>
+  ```
+
+* 폼(form) - **텍스트 박스**
+
+  * 기본
+
+  ```html
+  <form>
+  	아이디 <input type="text" name="id" required>
+  	패스퉈드 <input type="password" name="pwd" required>
+  	<input type="submit" value="로그인"> <!-- 버튼 -->
+  	<input type="reset" value="재작성">
+  </form>
+  ```
+
+  * get 방식 - 입력값이 URL에 보임 (로그인에 사용하기에 적합하지 않음)
+
+  ```html
+  <form method="get" action="http://localhost:8000/edu/serverprogram">
+          계정 <input type="text" name="account" required>
+          패스워드 <input type="password" name="pwd" required>
+          <input type="submit" value="로그인">
+          <input type="reset" value="재작성">
+  </form>
+  ```
+
+* 폼(form) - **check 박스**
+
+  ```html
+  <form method="get" action="http://localhost:8000/edu/serverprogram">
+  	좋아하는 음식 (여러 개 선택) : <br>
+      <input type="checkbox" name="food" value="f1">불고기<br>
+      <input type="checkbox" name="food" value="f2">치킨<br>
+      <input type="checkbox" name="food" value="f3" checked>피자<br>
+      <input type="checkbox" name="food" value="f4">짜장면<br><br>
+      <input type="submit" value="전송">
+      <input type="reset" value="재작성">
+  </form>
+  ```
+
+  * 여러 개 선택
+
+* 폼(form) - **radio 박스**
+
+  ```html
+  <form method="get" action="http://localhost:8000/edu/serverprogram">
+  	좋아하는 칼라 (한 개 선택) : <br>
+      <input type="radio" name="color" value="노란색">노란색<br>
+      <input type="radio" name="color" value="녹색">녹색<br>
+      <input type="radio" name="color" value="주황색">주황색<br><br>
+      <input type="submit" value="전송">
+      <input type="reset" value="재작성">
+  </form>
+  ```
+
+  * 한 개 선택
+
+* 폼(form) - **드롭다운**
+
+  * 업엔 다운 - `min/max`로 지정
+
+  ```html
+  <form method="get" action="http://localhost:8000/edu/serverprogram">
+  	태어난 년도를 입력하세요 : <br>
+      <input type="number" name="age" min="2000" max="2005"><br><br>
+      <input type="submit" value="전송">
+      <input type="reset" value="재작성">
+  </form>
+  ```
+
+  * 리스트 다운 - 직접 지정
+
+  ```html
+  <form method="get" action="http://localhost:8000/edu/serverprogram">
+  	태어난 년도를 선택하세요 : <br>
+      <select name="year">
+      	<option value="2000">2000</option>
+          <option value="2001">2000</option>
+          <option value="2002">2002</option>
+          <option value="2003">2003</option>
+          <option value="2004">2004</option>
+      </select><br><br>
+      <input type="submit" value="전송">
+      <input type="reset" value="재작성">
+  </form>
+  ```
+
+* 폼(form) - **긴 텍스트 상자**
+
+  ```html
+  <form method="get" action="http://localhost:8000/edu/serverprogram">
+  	남기려는 글을 입력하세요 : <br>
+      <textarea name="memo" rows="5" cols="50"></textarea><br>
+      <input type="submit" value="전송">
+      <input type="reset" value="재작성">
+  </form>
+  ```
+
+* 폼(form) - **달력**
+
+  ```html
+  <form method="get" action="http://localhost:8000/edu/serverprogram">
+  	생일을 선택하세요 : <br>
+      <input type="datetime-local" name="birth"><br><br> <!-- 년월일시간 -->
+      <input type="date" name="birth"><br><br> <-- 년월일 -->
+      <input type="submit" value="전송">
+      <input type="reset" value="재작성">
+  </form>
+  ```
+
+  
+
