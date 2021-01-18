@@ -108,32 +108,32 @@
 * `lower`
 
   * **모든 문자**를 **소문자**로 변경
-  * `str.lower()`
+  * `str = str.lower()`
     * `"good morning. my love kim."`
 
 * `upper`
 
   * **모든 문자**를 **대문자**로 변경
-  * `str.upper()`
+  * `str = str.upper()`
     * `"GOOD MORNING. MY LOVE KIM."`
 
 * `swapcase`
 
   * **소문자는 대문자**로, **대문자는 소문자**로 변경
-  * `str.swapcase()`
+  * `str = str.swapcase()`
     * `"gOOD MORNING. MY LOVE kim."`
 
 * `capitalize`
 
   * 문자열의 **맨 앞 문자**만 **대문자**로 변경
-  * `str.capitalize()`
+  * `str = str.capitalize()`
     * `"Good morning. my love kim."`
 
 * `title`
 
   * 문자열의 **한 단어마다의 맨 앞 문자**를 **대문자**로 변경
 
-  * `str.title()`
+  * `str = str.title()`
 
     * `"Good Morning. My Love Kim."`
 
