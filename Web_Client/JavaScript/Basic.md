@@ -4,6 +4,10 @@
 >
 > 구조, 변수, 연산자, 제어문, 배열, 함수
 
+* 프로그램 실행 시 자바스크립트 엔진이 가장 먼저 파악하는 것 : 선언적 함수, 전역변수
+
+
+
 ---
 
 
@@ -75,7 +79,28 @@ var 변수명 = 값;
 > 1. 기본형 타입
 > 2. 객체 타입
 
+* 타입 확인
 
+  ```javascript
+  typeof 변수 
+  ```
+
+  * 타입 종류 
+
+    ```javascript
+    "number", "string", "function", "boolean", "object"
+    ```
+
+  * `숫자 문자열`도 `숫자`로 취급하여 확인하고 싶을 때
+
+    ```javascript
+    isNaN(변수) // Not a Number
+    ```
+
+    * 숫자가 아니면 `true`
+    * 숫자가 맞으면 `flase`
+
+    
 
 #### 1. 기본형 타입
 
@@ -248,7 +273,7 @@ var 변수명 = 값;
 
 > like 파이썬의 **리스트**
 
-* 객체로 취급
+* **객체(Object)**로 취급
 * 각 데이터들 = 요소
 * 배열의 요소 갯수는 가변적으로 처리 가능
   * 배열 생성 시 크기를 지정하더라도
@@ -278,7 +303,14 @@ var 변수명 = 값;
 
 
 
-#### (2) 배열 활용
+#### (3) 배열 속성
+
+* `arr.length`
+  * 배열 길이 반환
+
+  
+
+#### (2) 배열 메소드
 
 * `arr.concat(추가연결할배열)`
 
@@ -290,6 +322,8 @@ var 변수명 = 값;
 
 * `arr.push(요소)`
 
+  * 맨마지막 요소 다음에 요소를 추가함
+
 * `arr.shift()`
 
 * `arr.unshift(요소, ...)`
@@ -298,13 +332,31 @@ var 변수명 = 값;
 
 * `arr.sort([fnc])`
 
+  * 배열의 요소 정렬
+
+  * 함수 없는 정렬 (default) : 문자열 기반 정렬
+
+    ```javascript
+    var arr = ['둘리', '또치', '도우너', '희동이', '고길동']
+    var new_arr = arr.sort();
+    ```
+
+  * 함수 있는 정렬 (숫자 기반 정렬)
+
+    ```javascript
+    var arr = [30, 11, 5, 27, 9]
+    var new_arr = arr.sort(function(a, b){ return a-b;});
+    ```
+
 * `arr.toString()`
 
+  * `,` 가 요소 사이사이에 붙어서 출력된다
   
-
+* 그냥 출력해도 자동으로 `toString()` 호출됨
   
-
-
+  * 위와 동일
+  
+  
 
 ---
 
@@ -312,15 +364,119 @@ var 변수명 = 값;
 
 ## 함수
 
-* * `function()` : 함수
-    * 함수명 생략 
-      * like 람다 함수
-    * 함수명 생략 X
-      * 함수명 만들어 사용하면 HTML 태그에 정의된 속성 값으로 작성 가능
+> 하나의 로직을 재실행 할 수 있도록 하는 것으로 코드의 재사용성을 높여줌
+>
+> 자바스크립트 함수도 일급 객체를 만족
+>
+> 이벤트 핸들러 구현하는데 사용
+>
+>  HTML 태그에 정의된 속성 값으로 작성 가능
+
+* 함수를 변수에 담아서 사용(호출)할 수 있고, 함수 호출시 아규먼트로 전달 가능
+* 함수가 값을 리턴하지 않으면 undefined가 자동으로 리턴됨.
 
 
 
-#### 난수 생성
+#### (1) 함수 정의 방법
+
+* 선언적(명시적) 함수 정의
+
+  ```javascript
+  function 함수명([매개변수1, 매개변수2, ...])
+  {
+  	// 함수 수행 코드
+  }
+  함수명(); // 함수 호출
+  ```
+
+* 표현식(익명) 함수 정의
+
+  ```javascript
+  var 함수명 = function([매개변수1, 매개변수2, ...])
+  {
+  	// 함수 수행 코드.
+      // return 리턴값
+  };
+  함수명(); // 함수 호출
+  ```
+
+* 공통점 
+  
+  * 사용 방법, 호출 방법
+* 차이점 
+  * 선언적 함수
+    * 프로그램 실행시 가장 먼저 파악되기 때문에, 함수 선언보다 호출이 먼저 나와도 실행됨.
+  * 표현식 함수
+    * 함수 선언보다 호출이 먼저 나오면 에러
+
+
+
+#### (2) 인수
+
+* 함수를 호출할  때 함수에 정의된 매개변수만큼 인수를 전달하지 않아도 호출 가능
+  
+* 대신 매개변수에 인수를 전달하지 않으면 해당 매개변수의 값은 `undefined`가 됨
+  
+* 가변인수
+
+  * 함수 호출시 인수 갯수에 제한이 없는 함수
+
+  * 가변인수 함수를 정의할 때는 매개변수 정의를 생략하고, 함수 호출시 자동으로 만들어지는 `arguments`라는 배열을 활용!
+
+  * 예시
+
+    ```javascript
+    function test() {
+    	document.write("아규먼트 갯수 : "+arguments.length+"<br>");
+    	for(var i=0; i < arguments.length; i++) 
+    		console.log(arguments[i]);
+    }
+    
+    test(); 
+    test(10);
+    test(10,20); 
+    test('a', 'b', 'c'); 
+    test(1,2,3,4,5,6,7,8);
+    ```
+
+* 고계(고차) 함수
+
+  * 함수를 데이터로 다루는 함수
+
+  1. 함수 호출 시 함수를 인수로 전달 가능
+
+     ```javascript
+     function test(callback){
+     	if(callback != undefined)
+     		callback(3);
+     };
+     test(function(num)
+     {
+     	if(num%2==1)
+     		alert(num + ':Odd');
+     	else
+     		alert(num + ':Even');
+     });
+     ```
+
+  2. 리턴 값으로 함수 전달 가능
+
+     ```javascript
+     function test()
+     {
+     	return function(str)
+     	{
+     		alert(str+"!!");
+     	};
+     };
+     var result = test();
+     ```
+
+  
+
+#### (3) 여러가지 함수
+
+##### 1. 난수 생성
 
 * `Math.random()`
 
@@ -328,7 +484,7 @@ var 변수명 = 값;
   var rand = Math.random();
   ```
 
-  * `0.0 <= rand < 1.0
+  * `0.0 <= rand < 1.0`
 
 * `0~N-1`사이의 난수를 생성하고 싶을 때
 
@@ -337,4 +493,23 @@ var 변수명 = 값;
   var N = 3;
   document.writeln(Math.floor(rand*N))
   ````
+  
+  * `Math.floor()` : 소수점 아래를 날려버리는 함수
 
+* `1~10` 사이의 난수를 생성하고 싶을 때
+
+  ```javascript
+  var num = Math.floor(Math.random()*10)+1;
+  ```
+
+  
+
+##### 2. 날짜 반환
+
+```javascript
+var d = new Date();
+document.writeln(d.toString());
+document.writeln(d);
+```
+
+* 자바스크립트는 자동으로 `toString()` 호출해줌

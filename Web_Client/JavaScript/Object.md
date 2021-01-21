@@ -3,12 +3,32 @@
 ## window
 
 * `window.alert("메시지")` 
-  * 사용자에게 메시지를 보여주고 확인받는 용도
-
+  
+* 사용자에게 메시지를 보여주고 확인받는 용도
+  
 * `window.prompt()`
+  
   * 사용자로부터 데이터를 입력받는 용도
+  
 * `window.confirm()`
+  
   * `예` 또는 `아니오` 둘 중 하나를 입력받는 용도
+  
+* `window.setInterval(함수, time)`
+
+  * `time`마다 함수를 실행시킴
+
+    ```javascript
+    var displayDate = function()
+    {
+    	var d = new Date();
+    	document.write(d.toLocaleString()+"<br>");
+    };
+    var time = 5000; //5초
+    window.setInterval(displayDate,time);
+    ```
+
+  * 
 
 ## document
 
@@ -119,3 +139,6 @@
   }
   ```
 
+
+
+##
