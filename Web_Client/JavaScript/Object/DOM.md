@@ -159,10 +159,12 @@ dom.getAttribute('속성명')
 > 이벤트에 따라 이벤트 핸들러를 호출하여 실행하는 모델
 
 * 이벤트 (event)
+  
   * 웹페이지 안에서 발생한 여러 가지 사건
 * 이벤트 핸들러 (event handler)
-  * 이벤트에 따라 대응하는 처리
-
+  
+* 이벤트에 따라 대응하는 처리
+  
 * 이벤트 타겟 (event target)
 
   * 이벤트가 일어날 객체
@@ -179,7 +181,31 @@ dom.getAttribute('속성명')
 > 1. 애플리케이션 사용자가 발생시키는 이벤트
 > 2. 애플리케이션이 스스로 발생시키는 이벤트
 
-* `load`, `click`
+* `load`
+
+  * 문서의 모든 콘텐츠(images, script, css, etc) 가 로드된 후 브라우저에서 자동으로 발생하는 이벤트
+  * 페이지 로드했을 때 자동으로 실행하고 싶은 이벤트 핸들러와 연결해 사용!
+
+* `click`
+
+  * 클릭한 위치의 (x, y) 좌표 정보를 가져오고 싶을 때
+
+    ```html
+    <h1>테스트</h1>
+    </div>
+    <script>
+    function clickHandler() {
+    	var dom = document.getElementsByTagName("h1")[0];
+    	dom.addEventListener("click", displayAlert);
+    }
+    function displayAlert(e) {	
+    	window.alert("클릭 : " + e.pageX + ", " + e.pageY);
+    	window.alert("클릭 : " + e.screenX + ", " + e.screenY);
+    	
+    }
+    window.addEventListener("load", clickHandler);
+    </script>
+    ```
 
 * `mousedown`, `mousemove`, `mouseover`, `mouseup`
 
@@ -189,7 +215,7 @@ dom.getAttribute('속성명')
 
 * `blur`, `focus`
 
-* `setTimeout(function(){}, n초)` : 
+* `setTimeout(function(){}, n초)` 
 
   * `n초` 후에 `function()` 실행 
 
@@ -251,6 +277,21 @@ dom.getAttribute('속성명')
       </script>
   ```
 
+* 디폴트 이벤트 핸들러
+
+  ```html
+  <a href="URL" onClick="test(); return false;">디폴트 이벤트 핸들러</a>
+  <script>
+  	function test()
+      {
+          alert("인라인 이벤트 모델 버튼을 클릭하였습니다.");
+      }
+  </script>
+  ```
+
+  * 태그에 `return false` 를 추가해주면 `test()` 만 실행이 되고 URL로 이동하지 않는다.
+  * 디폴트는 많이 사용하지 않지만 주로 `<a> 태그`에 사용
+
   
 
 #### (2) 고전 이벤트 모델 (전역적)
@@ -274,7 +315,28 @@ dom.onclick = 이벤트핸들러명;
   * `dom.속성`
   * `this.속성`
   * `e.target.속성`
+  
 * 등록된 이벤트 핸들러를 해제하려면, 핸들러를 등록한 속성의 값에 `null`을 재할당
+
+* 디폴트 이벤트 핸들러
+
+  ```html
+  <a id="t" href="URL">디폴트 이벤트 핸들러</a>
+  <script>
+  	function test()
+      {
+          alert("고전 이벤트 모델 버튼을 클릭하였습니다.");
+          return false;
+      }
+      var dom = document.querySelector("#t");
+      dom.onclick = test;
+  </script>
+  ```
+
+  * `test()` 함수 안에` return false` 추가해주면 함수만 실행 되고 URL로 이동하지 않는다.
+  * 디폴트는 많이 사용하지 않지만 주로 `<a> 태그`에 사용
+
+  
 
 #### (3) 표준 이벤트 모델 (전역적)
 
@@ -310,8 +372,26 @@ dom.addEventListener("이벤트명", 이벤트핸들러명);
   * `dom.속성`
   * `this.속성`
   * `e.target.속성`
+  
+* 디폴트 이벤트 핸들러
 
+  ```html
+  <a id="t" href="URL">디폴트 이벤트 핸들러</a>
+  <script>
+  	function test()
+      {
+          e.preventDefault();
+          alert("표준 이벤트 모델 버튼을 클릭하였습니다.");
+      }
+      var dom = document.getElementById("t");
+      dom.addEventListener("click", test);
+  </script>
+  ```
 
+  * `test()` 함수 안에` e.preventDefault` 추가해주면 함수만 실행 되고 URL로 이동하지 않는다.
+  * 디폴트는 많이 사용하지 않지만 주로 `<a> 태그`에 사용
+
+  
 
 #### [고전 이벤트 모델] vs [표준 이벤트 모델]
 

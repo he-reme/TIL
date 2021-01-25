@@ -109,7 +109,7 @@
 <html>
 	<!-- HEAD 요소 -->
 	<head>
-		<meta "charset=UTF-8">
+		<meta "charset=UTF-8"> // 빼먹을 경우 한글 깨져서 나옴
 		<title> HTML5 기본 구조 </title>
 	</head>
 

@@ -352,22 +352,4 @@ function 함수명([매개변수])
 
 
 
----
 
-
-
-## onclick
-
-> 객체를 클릭했을 때 액션
-
-* `변수.onclick`
-
-  ```javascript
-  var doms = document.getElementsByTagName("button");
-  doms[0].onclick = function(){
-  	window.alert("텍스트 버튼이 클릭되었어요!!"); 
-  }
-  doms[1].onclick = function(){
-  	window.alert("이미지 버튼이 클릭되었어요!!")
-  }
-  ```
