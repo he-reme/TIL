@@ -277,8 +277,8 @@
 
   ```html
   <form>
-  	아이디 <input type="text" name="id" required>
-  	패스퉈드 <input type="password" name="pwd" required>
+  	아이디 <input type="text" name="id" placeholder="아이디를 입력하세요" required>
+  	패스워드 <input type="password" name="pwd" placeholder="비밀번호를 입력하세요" required>
   	<input type="submit" value="로그인"> <!-- 버튼 -->
   	<input type="reset" value="재작성">
   </form>
