@@ -273,7 +273,9 @@ python manage.py makemigrations 앱이름
 python manage.py migrate
 ```
 
- 
+ #### ... 이후 데이터베이스는 HeidSQL에서 확인 가능 (문서 참고)
+
+
 
 ---
 
@@ -285,15 +287,104 @@ python manage.py migrate
 >
 > 이러한 기능은 Django가 ORM 서비스를 기본적으로 제공함에 따른 것으로 데이터베이스를 편리하게 핸들링할 수 있게 도와줌
 
+
+
 #### INSERT
 
-```
-모델이름(필드명1=필드값1, 필드명2=필드값2, ...).save()
+#### SELECT
+
+#### UPDATE
+
+#### DELETE
+
+
+
+---
+
+
+
+## INSERT
+
+```python
+모델클래스명(필드명1=필드값1, 필드명2=필드값2, ...).save()
 ```
 
 * 모델 객체를 생성하고, 그 객체의 `save()` 메서드 호출
 * 해당 메서드가 호출되면 SQL의 `INSERT`가 생성되고 실행되어 
 * **테이블에 데이터가 추가됨**
+
+
+
+---
+
+
+
+## SELECT
+
+```
+모델클래스명.objects.메서드명()
+```
+
+* 데이터를 읽어오기 위해서는 Django 모델의 `Manager`, 즉 `모델클래스.objects` 사용해야 함!
+  * Django는 디폴트로 모든 Django 모델 클래스에 대해 `objects` 라는 `Manager(django.db.models.Manager)` 객체를 자동으로 추가함
+  * 이 `Manager`를 통해 특정 데이터 필터링, 정렬 등의 여러 기능들 사용 가능
+
+#### 주요 메서드
+
+> 아래의 쿼리 메서드들은 실제로 데이터 결과를 직접 리턴하는 것이 아니라,
+>
+> 쿼리 표현식(Django에서는 QuerySet이라고 함)을 리턴함
+>
+> 따라서 여러 메서드들을 체인처럼 연결하여 사용할 수 있음
+>
+> 여러 체인응로 연결되면 최종적으로 리턴된 쿼리가 해석되어 DB에는 하나의 최종 쿼리를 보내게 됨!
+
+* `all()`
+  * 테이블 데이터 전부 가져오기
+  * `QuerySet` 객체가 리턴됨
+* `get()`
+  * 하나의 행(Row) 가져오기
+  * 인자 : 행의 `pk값` 또는 `id값`
+  * 예시 : `모델클래스명.objects.get(id=id값)`
+* `filter()`
+  * 특정 조건에 맞는 행(Row)들 가져오기
+  * 예시 : `rows = 모델클래스명.objects.filter(name='김혜림')`
+* `exclude()`
+  * 특정 조건을 제외한 나머지 행(Row)들 가져오기
+  * 예시: `rows = 모델클래스명.objects.exclude(name='김혜림')`
+* `count()`
+  * 데이터 갯수(Row 갯수)를 반환
+* `order_by()`
+  * 데이터를 키에 따라 정렬
+  * 인자: 정렬 키
+  * 내림차순 정렬 : 정렬 키 앞에 `-`를 붙이기
+  * 예시 : `rows = 모델클래스명.objects.order_by('id', '-name')`
+    * id를 기준으로 올림차순, name을 기준으로 내림차순 정렬
+
+* `distinct()`
+  * 중복된 값을 하나로만 표시
+  * = SQL의 `SELECT DISTINCT`
+  * 인자 : 필드명
+* `first()`
+  * 데이터들 중 처음에 있는 행(Row) 리턴
+  * 예시 : `row = 모델클래스명.objects.order_by('name').first()`
+* `last()`
+  * 데이터들 중 마지막에 있는 행(Row) 리턴
+
+
+
+---
+
+
+
+## UPDATE
+
+```
+모델클래스명.필드명1 = 필드값1
+모델클래스명.필드명2 = 필드값2
+...
+모델클래스명.save()
+```
 
 
 
