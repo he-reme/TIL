@@ -104,6 +104,10 @@
 
 
 
+---
+
+
+
 ## HttpRequest 객체
 
 > 주로 `request` 를 변수명으로 사용
@@ -201,9 +205,10 @@
 
 * `HttpRequest.get_port()`
 
-  
 
-## `HttpResponse` 객체
+
+
+## HttpResponse 객체
 
 * 응답 처리
 
@@ -261,8 +266,38 @@ response.write("<태그>원하는 문자열</태그>")
 #### `HttpResponseRedirect(url)`
 
 * 별다른 `response`를 하지는 않고, 지정된 url 페이지로 `redirect`함
-* 첫번째 인자는 반드시 `url`로 지정
+* 첫번째 인자는 반드시 `url` 혹은 `url name`로 지정
 * 경로는 절대경로/상대경로 이용 가능
+
+* 예시 
+
+  * `urls.py`
+
+  ```python
+  from django.urls import path
+  from . import views
+  
+  urlpatterns = [
+      path("exam1/", views.exam1, name="E1"),
+      path("exam2/", views.exam2, name="E2"),
+  ]
+  ```
+
+  * `views.py`
+
+  ```python
+  from django.shortcuts import render, redirect
+  
+  def exam1(request) :
+  	# 별다른 Response 없이 바로 exam2 함수로..
+      return redirect("E2")
+  def exam2(request):
+  	return render(request, 'exam2.html')
+  ```
+
+  
+
+---
 
 
 
@@ -299,6 +334,10 @@ return render(request객체, 템플릿파일(html), 딕셔너리객체(context))
     ```python
     return render(request, 'exam2_1.html', context)
     ```
+
+
+
+---
 
 
 
@@ -365,7 +404,7 @@ return render(request객체, 템플릿파일(html), 딕셔너리객체(context))
 >
 >  4가지 기능 제공 : 변수, 필터, 태그, 주석
 
-### 템플릿 변수
+### 1. 템플릿 변수
 
 ##### `{{ 변수명 }}`
 
@@ -375,34 +414,57 @@ return render(request객체, 템플릿파일(html), 딕셔너리객체(context))
 * 템플릿 변수를 사용하면 뷰에서 템플릿으로 객체 전달 가능
 * 변수명으로 데이터 값 추출이 안되는 경우 : 공백으로 처리
 
-### 템플릿 필터
+### 2. 템플릿 필터
 
+##### `{{ 변수명|필터 }}`
 
+* 변수의 값을 특정 형식으로 변환할 때 사용
+* 변수 다음에 **`파이프(|)`**를 넣은 다음 적용하고자 하는 필터를 명시
+* 여러 개의 필터 연속적으로 사용 가능
+* 몇몇 필터는 인자를 가짐
+  * 인ㅇ자에 공백이 포함된 경우 반드시 따옴표`"`로 묶어야 함.
+* 장고는 30개 정도의 내장 템플릿 필터 제공
 
-### 템플릿 태그 (로직)
+#### (1) default
+
+* `{{ 변수|default:"default값" }}`
+* 변수가 false 또는 비어있는 경우, 지정된 default값을 사용
+
+#### (2) length
+
+* `{{ 변수|length }}`
+* 변수의 길이를 반환
+* 문자열과 시퀀스형에 사용 가능
+
+#### (3) upper
+
+* `{{ 변수|upper }}`
+* 변수값을 대문자 형식으로 변환
+
+### 3. 템플릿 태그 (로직)
 
 ##### `{% 로직 %}`
 
 * 로직 구현 
 * if문, for문처럼 흐름 제어 가능
 
-#### 1. csrf_token 
+#### (1) csrf_token 
 
 * 사이트 간 요청 위조(=크로스 사이트 요청 위조)를 해결하기 위한 처리
-* `POST` 방식 `<form>` 태그 안에 꼭 작성
+* **`POST` 방식 `<form>` 태그 안에 꼭 작성**
 
 ```html
 {% csrf_token %}
 ```
 
-#### 2. for
+#### (2) for
 
 ````html
 {% for 변수명 in 시퀀스명 %}
 {% endfor %}
 ````
 
-#### 3. if / else
+#### (3) if / else
 
 ```html
 {% if 조건문 %}
@@ -411,7 +473,7 @@ return render(request객체, 템플릿파일(html), 딕셔너리객체(context))
 {% endif %}
 ```
 
-#### 4. block 및 extends
+#### (4) block 및 extends
 
 * 중복되는 html 파일 내용을 반복해서 작성해야 하는 번거로움을 줄여줌
 * 템플릿 확장
@@ -423,9 +485,7 @@ return render(request객체, 템플릿파일(html), 딕셔너리객체(context))
 {% endblock %}
 ```
 
-
-
-### 템플릿 코멘트
+### 4. 템플릿 코멘트
 
 * HTML 문서 상에서 주석이 필요할 때 사용
 * 장고에서는 2가지 코멘트 형식을 제공
@@ -458,10 +518,76 @@ return render(request객체, 템플릿파일(html), 딕셔너리객체(context))
 >
 > 템플릿 확장
 
+#### 구조
+
 ```html
 {% extends "html파일" %}
-{% block title %}{{ section.title }}{% endblock %}
-{% block content %}
+
+{% block title %}
+...
 {% endblock %}
 ```
+
+#### 환경설정
+
+* `장고프로젝트명/setting.py` 에서 확장하려는 베이스 템플릿 파일이 존재하는 폴더 정보를 설정해줘야 함
+
+```python
+TEMPLATES=[
+	...,
+	'DIRS' : [os.path.join(BASE_DIR, '장고프로젝트명', 'templates')],
+	...,
+]
+```
+
+#### 예시
+
+* 베이스 템플릿(base.html) 
+  * `장고프로젝트명/templates` 폴더에 작성
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    @font-face {
+         font-family: 'MaplestoryOTFBold';
+         src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+         font-weight: normal;
+         font-style: normal;
+    }
+    * {
+       font-family: 'MaplestoryOTFBold';
+    }
+    {% block mycss %}/* 내용1이 삽입됨 */{% endblock %}
+    </style>
+</head>
+<body>
+    {% block mycontent %}
+    	<!-- 내용2가 삽입됨 -->
+    {% endblock %}
+</body>
+</html>
+```
+
+* 템플릿 확장 사용 (exam.html)
+
+```html
+{% extends "base.html" %}
+
+{% block mycss %}
+<!-- 내용1 -->
+{% endblock %}
+
+{% block mycontent %}
+<!-- 내용2 -->
+{% endblock %}
+
+```
+
+
+
+---
 
