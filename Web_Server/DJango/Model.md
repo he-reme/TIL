@@ -388,3 +388,89 @@ python manage.py migrate
 
 
 
+---
+
+
+
+## 외래키 사용하기
+
+#### Academy 모델 클래스
+
+```python
+from django.db import models
+
+class Academy(models.Model) :
+    name = models.CharField(max_length=45)
+    address_full = models.CharField(max_length=80)
+    address_city = models.CharField(max_length=45)
+    address_town = models.CharField(max_length=45)
+    fee1 = models.IntegerField(null=True)
+    fee2 = models.IntegerField(null=True)
+    bus = models.CharField(max_length=500, null=True)
+    phone_number = models.CharField(max_length=45, null=True)
+    url = models.CharField(max_length=500, null=True)
+```
+
+#### Academy_review 모델 클래스 (외래키 가짐)
+
+```python
+from django.db import models
+from searchApp.models import Academy
+
+class Academy_review(models.Model):
+    title = models.CharField(max_length=45, default="제목없음")
+    password = models.CharField(max_length=8)
+    content = models.CharField(max_length=500)
+    writedate = models.DateField(auto_now_add=True)
+    academy_id = models.ForeignKey(Academy, on_delete=models.CASCADE)
+```
+
+* 예시
+
+  * views.py
+
+    ```python
+    def review(request) :
+        page = request.GET.get('page', 1)
+    
+        academyReview = Academy_review.objects.all()
+        reviewPaginator = Paginator(academyReview, 5)
+        reviewlistpage = reviewPaginator.get_page(page)
+    
+        context = {"academyReview": reviewlistpage}
+        return render(request, 'review.html', context)
+    ```
+
+  * review.html
+
+    ```html
+     {% if academyReview %}
+      <table class="table table-bordered">
+        <thead>
+    
+        </thead>
+        <tbody>
+          {% for review in academyReview %}
+          <tr>
+            <td> {{ review.academy_id.name }} </td>
+            <td> {{ review.academy_id.address_city }} </td>
+            <td> {{ review.academy_id.address_town }} </td>
+            <td> {{ review.title }} </td>
+            <td> {{ review.writedate }} </td>
+            <td><button onclick="confirmDelete('{{ review.pk }}')">삭제</button></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <br>
+      <h1>아직 내용이 없습니다</h1>
+      {% endif %}
+    ```
+
+    
+
+  ---
+
+  
+

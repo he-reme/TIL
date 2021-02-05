@@ -27,15 +27,19 @@
 
 ## 회원 정보 저장 DB
 
->  내장된 앱과 미들웨어 프로그램에 의해서 관련된 DB 테이블들이 최초로 수행된 migrate 명령에 의해 생성됨
+> 내장된 앱과 미들웨어 프로그램에 의해서 관련된 DB 테이블들이 최초로 수행된 migrate 명령에 의해 생성됨
 
-1. `django.contrib.auth` 앱에서 제공되는 `User`라는 모델 클래스를 통해 회원을 가입하고 가입된 회원 정보를 통해서 로그인과 로그아웃 기능을 간단하게 처리할 수 있음
-2. HeidSQL 에서 `auth_user`에 해당
-3. 실습에서는 네개만 저장할 것임
-   * `password` 
-   * `username` (`email` 컬럼 사용 안하고 `username`을 그냥 이메일로 받을 예정.)
-   * `last_name`
-   *  `first_name`
+* `django.contrib.auth` 앱에서 제공되는 `User`라는 모델 클래스를 통해,
+* 회원을 가입하고 가입된 회원 정보를 통해서 로그인과 로그아웃 기능을 간단하게 처리할 수 있음
+* 해당 모델 클래스는 HeidSQL 에서 `auth_user` 테이블에 해당
+
+* 실습에서는 해당 테이블의 속성 네개만 저장할 것임
+  * `username` 
+    * 아이디
+    * `email` 컬럼 사용 안하고 `username`을 그냥 이메일로 받을 예정
+  * `password` 
+  * `last_name`
+  * `first_name`
 
 
 
