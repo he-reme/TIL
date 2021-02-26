@@ -89,4 +89,23 @@
 
 * `levels(f)` : 레벨만 반환
 
+
+
+
+---
+
+
+
+### 예제
+
+* iotest2.txt 파일에 저장된 데이터들을 읽고 **가장 많이 등장한 단어**를 출력하세요
+
+  ```R
+  # 문제9
+  data <- scan("data/iotest2.txt", what="")
+  words <- as.factor(data)
+  index <- order(summary(words), decreasing = TRUE)[1]
+  levels(words)[index]
+  ```
+
   
