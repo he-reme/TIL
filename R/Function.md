@@ -71,9 +71,11 @@
 #### 데이터 타입 체크 함수
 
 * `is.vector(x)`
+  
   * `list`도 포함됨
 * `is.data.frame(x)`
 * `is.list(x)`
+  
   * `dataframe`도 포함됨
 * `is.matrix(x)`
 * `is.array(x)`
@@ -108,7 +110,7 @@
 
 
 
-### 여러가지 함수
+### 함수와 같이쓰는..
 
 #### apply()
 
@@ -341,4 +343,8 @@ f7 <- function(type, ...){
 f7(type=1, 100, 200, 300)
 f7(1, 100, 200, 300)
 ```
+
+
+
+---
 

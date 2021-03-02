@@ -105,7 +105,7 @@ df <- read.table("패스" [, 옵션])
   * 그래서 `UTF-8`로 작성된 파일을 읽으면, 한글이 깨질 수 있으므로 지정해줘야 함.
     * `encoding="UTF-8"`
 
-* 한 행씩 읽기
+* **한 행씩** 읽기
 
   ```R
   lines_ansi <- readLines("패스")
@@ -136,6 +136,34 @@ df <- read.csv(file.choose())
 * `df[,c(컬럼이름 ,컬럼이름, 컬럼이름)]`
 * `subset(df, select = c(컬럼이름, 컬럼이름, 컬럼이름))`
 * 그냥 데이터프레임과 동일
+
+
+
+---
+
+
+
+### csv 파일 쓰기
+
+```R
+write.csv("")
+```
+
+
+
+### 일정한 구분자로 구성된 파일 쓰기
+
+```R
+write.table("")
+```
+
+
+
+### 기타 파일 쓰기
+
+```R
+write(memo, file="memo_new.txt")
+```
 
 
 
@@ -248,23 +276,4 @@ df <- read.csv(file.choose())
 
 ---
 
-
-
-### csv 파일 쓰기
-
-```
-write.csv("")
-```
-
-
-
-### 일정한 구분자로 구성된 파일 쓰기
-
-```
-write.table("")
-```
-
-
-
----
 
