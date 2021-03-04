@@ -2,10 +2,12 @@
 
 * 데이터 수집을 위해서는 웹 스크래핑, 웹 크롤링 2가지 기술 필요
 * 웹 스크래핑 (web scraping)
+  
   * 웹 사이트 상에서 원하는 부분에 위치한 정보를 컴퓨터로 하여금 자동으로 추출하여 수집하는 기술
 * 웹 크롤링 (web crawling)
-  * 자동화 봇인 웹 크롤러가 정해진 규칙에 따라 복수 개의 웹 페이지를 브라우징 하는 행위
-
+  
+* 자동화 봇인 웹 크롤러가 정해진 규칙에 따라 복수 개의 웹 페이지를 브라우징 하는 행위
+  
 * CSS 선택자에 대해 정리 잘 되어있는 블로그
 
   [너무 잘 정리되어있는 블로그.. 감사합니당](https://webzz.tistory.com/357)
@@ -27,6 +29,7 @@
 * **xPath 가져오기**
 
   * 크롬의 개발자도구 - 원하는 부분 마우스 우클릭 - copy - copy xpath 하면 끝~!
+  * 가끔 원하는 결과가 나오지 않을 때는 앞부분 지우고 `//`로 생략해보기
 
 * 속성명 사용 방법 : `@속성명`
 
@@ -95,8 +98,9 @@
 * 응답 내용이 `html`일 경우에도 사용 가능
 
 * `htmlParse(file, encoding="...")`
-  * `xpathSApply()` 사용 가능한 객체로 변환
-
+  
+* `xpathSApply()` 사용 가능한 객체로 변환
+  
 * `xpathSApply(doc, xpath, fun)`
 
   * 원하는 노드(태그) 추출하고 전달된 함수 수행하기
@@ -116,8 +120,9 @@
 * `GET(url)`
   * HTML 웹 페이지를 요청해서 받아오기
   * `read_html(url)` 보다 좀 더 기능이 확장됨
-  * 요청 헤더에 **계정 또는 패스워드** 등의 정보 전달 가능
+  * **요청 헤더**에 **계정 또는 패스워드** 등의 정보 전달 가능
   * 응답 내용이 **바이너리**인 경우에도 사용 가능
+    * pdf, 이미지 등
 
 
 
@@ -125,7 +130,7 @@
 
 
 
-### 순서
+### rvest 패키지 사용 순서
 
 ```R
 url <- "url" # 스크래핑할 url
@@ -139,6 +144,47 @@ h1_content <- html_text(h1) # 해당 태그의 컨텐츠 가져오기
 h1_attrs <- html_attrs(h1) # 해당 태그의 속성들 추출
 h1_attr <- html_attr(h1, 속성명) # 해당 태그의 속성명을 통한 속성값 추출
 ```
+
+
+
+### xml 패키지 사용 순서
+
+```R
+url <- "url"
+html <- read_html(url)
+hp <- htmlParse(html) # xpathSApply() 사용할 수 있는 객체로 변환
+```
+
+```R
+h1 <- xpathSApply(hp, xpath, xmlValue) # 해당 태그의 컨텐츠 가져오기
+h1 <- xpathSApply(hp, xpath, xmlGetAttr) # 확인 해야함
+h1 <- xpathSApply(hp, xpath, xmlAttrs) # 확인 해야함
+```
+
+
+
+### httr 패키지 사용 순서
+
+>  이미지, 첨부파일 다운받기 
+
+```R
+# pdf
+res <- GET('url/아무거나.pdf')
+writeBin(content(res, 'raw'), '저장경로/원하는이름.pdf')
+```
+
+```R
+# jpg
+html <- read_html('url')
+imgs <- html_nodes(html, 'img')
+img.src <- html_attr(imgs, 'src')
+for(i in 1:length(img.src)){
+	res <- GET(paste('다운받을 url', img.src[i], sep=""))
+	writeBin(content(res, 'raw'), paste('저장경로', img.src[i], sep=""))
+}
+```
+
+* 이해 안되면 아래에 예제
 
 
 
@@ -156,6 +202,16 @@ h1_attr <- html_attr(h1, 속성명) # 해당 태그의 속성명을 통한 속�
 
 
 #### DOM 객체의 구조
+
+
+
+---
+
+
+
+### 같이 사용하면 좋은 함수
+
+* `unique()` : 중복 결과 제거
 
 
 
@@ -321,4 +377,138 @@ for(i in 1: 100) {
 }
 write.csv(movie.review, "output/movie_reviews3.csv")
 ```
+
+
+
+#### 뉴스 읽기 (다음) 1
+
+> for 문 사용
+
+```R
+# rvest 패키지 사용
+url <- "https://news.daum.net/ranking/popular/"
+html <- read_html(url)
+
+daumnews <- NULL
+for(index in 1:50){
+  node <- html_node(html, xpath=paste0('//*[@id="mArticle"]/div[2]/ul[3]/li[', index, ']/div[2]/strong/a'))
+  newstitle <- html_text(node)
+  
+  node <- html_node(html, xpath=paste0('//*[@id="mArticle"]/div[2]/ul[3]/li[', index, ']/div[2]/strong/span'))
+  newspapername <- html_text(node)
+  
+  news <- data.frame(newstitle, newspapername)
+  daumnews <- rbind(daumnews, news)
+}
+write.csv(daumnews, "output/daumnews.csv")
+
+
+# xml 패키지 사용
+url <- "https://news.daum.net/ranking/popular/"
+html <- read_html(url)
+hp <- htmlParse(html)
+
+daumnews <- NULL
+for(index in 1:50){
+  newstitle <- xpathSApply(hp, paste0('//*[@id="mArticle"]/div[2]/ul[3]/li[', index, ']/div[2]/strong/a'), xmlValue)
+  newspapername <- xpathSApply(hp, paste0('//*[@id="mArticle"]/div[2]/ul[3]/li[', index, ']/div[2]/strong/span'), xmlValue)
+
+  news <- data.frame(newstitle, newspapername)
+  daumnews <- rbind(daumnews, news)
+}
+write.csv(daumnews, "output/daumnews.csv")
+```
+
+
+
+#### 뉴스 읽기 (다음) 2
+
+> 한번에 구하기
+
+```R
+# rvest 패키지 사용
+url <- "https://news.daum.net/ranking/popular/"
+html <- read_html(url)
+
+daumnews <- NULL
+
+node <- html_node(html, xpath='//*[@id="mArticle"]/div[2]/ul[3]/li/div[2]/strong/a'))
+newstitle <- html_text(node)
+  
+node <- html_node(html, xpath=paste0('//*[@id="mArticle"]/div[2]/ul[3]/li/div[2]/strong/span'))
+ newspapername <- html_text(node)
+  
+news <- data.frame(newstitle, newspapername)
+write.csv(news, "output/daumnews.csv")
+
+
+# xml 패키지 사용
+url <- "https://news.daum.net/ranking/popular/"
+html <- read_html(url)
+hp <- htmlParse(html)
+
+daumnews <- NULL
+
+newstitle <- xpathSApply(hp, paste0('//*[@id="mArticle"]/div[2]/ul[3]/li/div[2]/strong/a'), xmlValue)
+newspapername <- xpathSApply(hp, paste0('//*[@id="mArticle"]/div[2]/ul[3]/li/div[2]/strong/span'), xmlValue)
+
+news <- data.frame(newstitle, newspapername)
+write.csv(news, "output/daumnews.csv")
+```
+
+
+
+#### 이미지 첨부파일 다운 받기
+
+```R
+# pdf
+library(httr)
+res = GET('http://cran.r-project.org/web/packages/httr/httr.pdf')
+writeBin(content(res, 'raw'), 'c:/Temp/httr.pdf')
+
+# jpg
+h = read_html('http://unico2013.dothome.co.kr/productlog.html')
+imgs = html_nodes(h, 'img')
+img.src = html_attr(imgs, 'src')
+for(i in 1:length(img.src)){
+  res = GET(paste('http://unico2013.dothome.co.kr/',img.src[i], sep=""))
+  writeBin(content(res, 'raw'), paste('c:/Temp/', img.src[i], sep=""))
+} 
+```
+
+
+
+#### 네이버 웹툰
+
+* 제목, 설명, 별점 스크래핑하고, `csv`로 저장
+
+```R
+library(rvest)
+library(XML)
+library(httr)
+
+site <- "https://comic.naver.com/genre/bestChallenge.nhn?page="
+
+comicName <- NULL; comicSummary <- NULL; comicGrade <- NULL
+for(page in 1:20){
+  url <- paste(site, page, sep='')
+  print(url)
+  html <- read_html(url)
+  
+  node <- html_node(html, xpath='//td/div[2]/h6/a/text()')
+  comicName <- c(comicName, html_text(node, trim=TRUE))
+      
+  node <- html_node(html, xpath='//td/div[2]/div[1]')
+  comicSummary <- c(comicSummary, html_text(node, trim=TRUE))
+  comicSummary
+      
+  node <- html_node(html, xpath='//td/div[2]/div[2]/strong')
+  comicGrade <- c(comicGrade, html_text(node, trim=TRUE))
+  comicGrade
+}
+navercomic <- data.frame(comicName, comicSummary, comicGrade)
+write.csv(navercomic, "output/navercomic.csv")
+```
+
+
 
