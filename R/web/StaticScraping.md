@@ -1,4 +1,14 @@
-# 데이터 수집
+# 정적 스크래핑
+
+
+
+
+
+---
+
+
+
+### 데이터 수집
 
 * 데이터 수집을 위해서는 웹 스크래핑, 웹 크롤링 2가지 기술 필요
 * 웹 스크래핑 (web scraping)
@@ -19,6 +29,23 @@
 ### 스크래핑하려는 페이지에서 원하는 태그 찾기
 
 #### 방법1 : CSS Selector
+
+* CSS Selector 가져오기
+
+  * 크롬의 개발자도구 - 원하는 부분 마우스 우클릭 - copy - copy selector
+
+* 사용 방법 (풀버전, 간단하게 만드는 방법)
+
+  ```R
+  #1 풀버전
+  "body > div > div > div.container.ng-scope > div.content > div.hotel_used_review.ng-isolate-scope > div.review_ta.ng-scope > ul > li:nth-child(2) > div.review_desc > p"
+  
+  #2 앞에 생략하기
+  "div.review_desc > p"
+  
+  #3 자손 설정으로 더 정확하게 생략하기
+  "div.review_ta.ng-scope div.review_desc > p"
+  ```
 
 #### 방법2 : XPath
 
