@@ -224,3 +224,32 @@ cat(length(reple), "개의 댓글 추출\n")
 write(reple,"output/hotel.txt")
 ```
 
+
+
+#### 브라우저 화면 스크린샷
+
+```R
+install.packages("base64enc")
+install.packages("magick")
+library(base64enc)
+library(magick)
+
+remDr <- remoteDriver(remoteServerAddr = "localhost", port=4445, browserName="chrome")
+remDr$open()
+remDr$navigate("https://google.com")
+
+
+# this returns a list of base64 characters
+screenshot <- remDr$screenshot(display = FALSE)
+# converts the base64 characters into a vector
+screenshot <- base64decode(toString(screenshot), output = NULL)
+# reads the vector as stores it as a PNG
+screenshot <- image_read(screenshot)
+image_browse(screenshot)
+
+
+remDr$screenshot(display = FALSE, file="output/google.png")
+pngdata <- image_read("output/google.png")
+image_browse(pngdata)
+```
+
