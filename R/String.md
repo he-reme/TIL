@@ -236,6 +236,7 @@ gsub("[^[:alnum:]]", "", word) # 공백, 특수문자 ""로 대체
 gsub("[[:space:]]", "", word) # 공백 ""로 대체
 gsub("[[:space:][:punct:]]", "", word) # 공백, 특수문자 ""로 대체
 gsub("[a-z]|[A-Z]", "", word) # 모든 알파벳 ""로 대체
+gsub("[^가-힣[:space:]]", "", word) # 한글과 공백 제외하고 ""로 대체
 
 gsub("Aa", "", word) # Aa
 gsub("(Aa)", "", word)  # Aa

@@ -20,6 +20,8 @@
 * 언어 R
 * 한글 자연어 분석 패키지 : KoNLP (Korean Natural Language Processing)
 
+
+
 ---
 
 
@@ -222,58 +224,6 @@ SimplePos09("대한민국의 영토는 한반도와 그 부속도서로 한다")
 
 
 
-## 텍스트 전처리
-
-#### 정규 표현식 활용
-
-#### stringr 패키지
-
->다양한 문자열 처리 함수 제공 패키지
-
-```
-install.pakages("stringr")
-library(stringr)
-```
-
-* Detect Matches
-  * `str_detect(string, pattern)`
-    * 해당 문자열에 pattern이 있는지 확인
-    * bool 형식 반환
-  * `str_which(string, pattern)`
-    * 해당 문자열에서 pattern의 위치 인덱스를 반환
-  * `str_count(string, pattern)`
-    * 해당 문자열에서 pattern의 갯수 반환
-  * `str_locate(string, pattern)`
-  * `str_locate_all.str_locate(string, pattern)`
-* Subset Strings
-  * `str_sub(str, start=1L, end=-1L)`
-  * `str_subset(string, pattern)`
-  * `str_extract(string, pattern)`
-  * `str_match(string, pattern)`
-* Manage Lengths
-  * `str_length(string)`
-  * `str_pad(string, width, side=c("left", "right", "both"), pad="")`
-  * `str_trunc(string, width, side=c("right", "left", "center"), ellipsis="...")`
-  * `str_trim(string, side=c("both", "left", "right"))`
-* Mutate Strings
-  * `str_sub()`
-  * `str_replace(string, pattern, replacement)`
-  * `str_replace_all(string, pattern, replacement)`
-  * `str_to_lower(string, locale="en")`
-  * `str_to_upper(string, locale="en")`
-  * `str_to_title(string, locale="en")`
-* Join and Split
-  * 등등
-* Order Strings
-  * `str_order(x, decreasing=F, na_last=T, locale="en", numeric=F, ...)`
-  * `str_sort(x, decreasing=F, na_last=T, locale="en", numeric=F, ...)`
-* Helpers
-  * 등등
-
----
-
-
-
 ## 예제
 
 #### 애국가에서 가장 많이 나오는 단어 TOP10 구하기
@@ -307,7 +257,7 @@ write.csv(df, file="output/top10.csv")
 
 
 
-#### 애국가에서 3번 이상 나오는 단어만 구하기
+#### 애국가에서 단어 길이가 2 이상, 4 이하인 단어만 구하기
 
 ```R
 library(KoNLP)
@@ -322,7 +272,7 @@ words
 undata <- unlist(word_data3)
 undata
 
-undata2 <- Filter(function(x) {nchar(x) >= 3}, undata) # 3번 이상
+undata2 <- Filter(function(x) {nchar(x) >= 2 & nchar(x) <= 4}, undata) # 길이 2 이상 4 이하
 
 words_table <- table(undata2)
 words_table
