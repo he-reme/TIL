@@ -2,6 +2,7 @@
 
 > 키워드 빈도수에 따라 그림 그리는 것
 >
+> 단어의 개수를 세어 갯수의 크기 값에 따라서 단어의 크기를 차등적으로 출력하여 키워드가 되는 단어를 좀 더 강조하여 출력하는 시각화
 
 * 키워드
 * 빈도수
@@ -58,6 +59,24 @@ library(wordcloud2) # 로드
 
 ## wordcloud
 
+#### 사용
+
+* ` scale = c(4,1)` : 빈도가 가장 큰 단어와 가장 빈도가 작은 단어 폰트 사이 크기
+* `rot.per = 0.1` : 90도 회전해서 보여줄 단어 비율
+* `min.freq = 3, max.words = 100` : 빈도 3 이상, 100 미만 단어
+* `random.order = F` : T (랜덤배치) / F (빈도수가 큰단어를 중앙에 배치)
+* `random.color = T` : T (색상랜덤) / F (빈도순으로 색상표현)
+* `colors = 색상이름` 
+* `family = 폰트변수명` : 폰트
+
+#### 저장
+
+```R
+savePlot(szWordCloudImageFile, type="png")
+```
+
+#### 예제
+
 ```R
 wordcloud(df$keyword, df$freq)
 ```
@@ -85,6 +104,8 @@ wordcloud(df$keyword, df$freq,
 
 
 ## wordcloud2
+
+#### 사용
 
 * 폰트 설정
 
@@ -119,6 +140,13 @@ wordcloud2(data = df, shape = 'star')
 wordcloud2(data = df, shape = 'cardioid')
 wordcloud2(data = df, shape = 'triangle-forward')
 wordcloud2(data = df, shape = 'triangle')
+```
+
+#### 저장
+
+```R
+result <- wordcloud2(data=df, fontFamily = "휴먼옛체")
+htmltools::save_html(result,"output/yes24.html")
 ```
 
 

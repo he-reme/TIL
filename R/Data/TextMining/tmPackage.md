@@ -45,7 +45,7 @@
   }
   ```
 
-#### 예제
+#### 사용
 
 * 여러 개의 공백을 하나의 공백으로 변환
 
@@ -76,9 +76,46 @@
   ```R
   stopwords <- c(stopwords('en'), "and", "but") # 기본 불용어 외에 불용어로 쓸 단어 추가
   corp <- tm_map(corp, removeWords, stopwords) # 제거
-  ```
+  stopwords() # 불용어 확인
+```
 
-  
+#### 숫자, 특수문자, 불용어 삭제하기 1
+
+```R
+mystopwords <- readLines("data/stopwords_ko.txt", encoding="UTF-8") # 불용어 리스트
+text <- readLines("data/stopwords_testdata.txt", encoding="UTF-8")
+
+docs <- VCorpus(VectorSource(text))
+docs <- tm_map(docs, removeNumbers) # 숫자 제거
+docs <- tm_map(docs, removePunctuation) # 특수문자 제거
+docs <- tm_map(docs, removeWords, mystopwords) # 불용어 제거
+tdm <- TermDocumentMatrix(docs, control=list(wordLengths = c(1, Inf)))
+as.matrix(tdm)
+```
+
+#### 숫자, 특수문자, 불용어 삭제하기 2
+
+```R
+mystopwords <- readLines("data/stopwords_ko.txt", encoding="UTF-8") # 불용어 리스트
+text <- readLines("data/stopwords_testdata.txt", encoding="UTF-8")
+
+docs <- Corpus(VectorSource(text))
+tdm <- TermDocumentMatrix(docs, control=list(
+  removePunctuation = T,  # 특수문자 제거
+  removeNumbers = T, # 숫자 제거
+  wordLengths = c(1, Inf),
+  stopwords=mystopwords)) # 불용어 제거
+as.matrix(tdm)
+
+
+stopwords()
+```
+
+
+
+
+
+
 
 ---
 
@@ -195,6 +232,47 @@ m <- as.matrix(tdm) # 데이터를 Matrix 형태로 보려면 형변환 해줘�
 
 
 
+## 단어 가중치
+
+> 문서에서 어떤 단어의 중요도를 평가하기 위해 사용되는 통계적인 수치
+
+* 특정 문서 내에서 단어 빈도가 높을수록, 
+* 전체 문서들에서는 그 단어를 포함한 문서가 적을수록,
+* TFIDF 값이 높아지게 됨
+* 즉, 문서 내에서 해당 단어의 중요도는 커지게 됨
+
+* 예시
+  * 예를들어, `혜림` 이라는 단어가 문서1, 2, 3, 4 모두에 있을 경우 모든 문서 1, 2, 3, 4 내에서 중요도는 0이 됨
+
+
+
+#### 종류
+
+* `TF` 
+  * Term Frequency
+  * 단어 빈도
+* `IDF`
+  * Inverse Document Frequency
+  * 역문서 빈도
+* `DF`
+  * Document Frequency
+  * 문서 빈도
+* `TFIDF`
+  * `TF` X `IDF`
+
+```
+m1 <- as.matrix(weightTf(tdm))
+m2 <- as.matrix(weightTfIdf(tdm))
+```
+
+
+
+
+
+---
+
+
+
 ## 문서간 유사도 분석
 
 > 문서들간에 동일한 단어 또는 비슷한 단어가 얼마나 공통으로 많이 사용 되었냐에 따라서 문서간 유사도 분석을 할 수 있음
@@ -249,7 +327,9 @@ dist(com, method = "Euclidean") # 유클리드 거리
 
 ## 예제
 
-```
+* 기본
+
+```R
 lunch <- c("커피 파스타 치킨 샐러드 아이스크림",
            "커피 우동 소고기김밥 귤",
            "참치김밥 커피 오뎅",
@@ -262,5 +342,17 @@ cps <- VCorpus(VectorSource(lunch)) # 벡터 소스를 코퍼스 형식으로 �
 tdm <- TermDocumentMatrix(cps) # 문서 만들기 (TDM으로 변환)
 tdm # 속성 보여줌
 m <- as.matrix(tdm) # 데이터를 Matrix 형태로 보려면 형변환 해줘야 함
+```
+
+* html 텍스트 마이닝 준비
+
+```
+html_parsed <- htmlParse("아무.html")
+text <- xpathSApplyhtml(html.parsed, path="p", xmlValue)
+text <- text[4:30]
+text
+
+docs <- VCorpus(VectorSource(text))
+docs
 ```
 
