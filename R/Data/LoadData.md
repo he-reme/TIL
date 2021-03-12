@@ -3,9 +3,9 @@
 #### 목차
 
 * 현재 위치 출력
-* csv 파일 열기
-* csv 파일 찾아서 열기
-* csv 파일 데이터 접근
+* 파일 열기
+* 파일 찾아서 열기
+* 파일 데이터 접근
 * 행단위 출력
 * 조건식 정보 출력
 * NA 값 확인
@@ -59,6 +59,16 @@ df <- read.csv("패스")
   * 상대패스 : `data/score.csv`
 * `read.csv("절대패스")`
   * 절대패스 : `c:/KHR/Rexam/data/score.csv`
+
+#### 엑셀 파일
+
+```R
+install.packages("xlsx")
+library(xlsx)
+df <- read.xlsx("패스", sheetIndex, encoding="UTF-8")
+```
+
+* `sheetIndex` : 엑셀의 시트 번호
 
 #### 일정한 구분자로 구성된 파일
 
