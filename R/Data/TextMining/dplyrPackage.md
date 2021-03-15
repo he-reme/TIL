@@ -668,6 +668,18 @@ df$열이름 %>% ifelse(is.na(exam$math), NA대체값, exam$math)
 
 
 
+#### 결측치 확인하기 (2)
+
+`complete.cases(df)`
+
+* 결측치를 가진 행만 출력
+
+
+
+---
+
+
+
 ### 이상치
 
 * Outlier
