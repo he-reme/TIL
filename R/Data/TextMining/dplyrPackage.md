@@ -674,6 +674,12 @@ df$열이름 %>% ifelse(is.na(exam$math), NA대체값, exam$math)
 
 * 결측치를 가진 행만 출력
 
+#### 결측치 있는 행 제거하기 (2)
+
+```R
+df <- na.omit(df)
+```
+
 
 
 ---
