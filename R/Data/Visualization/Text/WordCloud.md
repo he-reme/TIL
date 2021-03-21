@@ -69,11 +69,15 @@ library(wordcloud2) # 로드
 * `colors = 색상이름` 
 * `family = 폰트변수명` : 폰트
 
+
+
 #### 저장
 
 ```R
 savePlot(szWordCloudImageFile, type="png")
 ```
+
+
 
 #### 예제
 
@@ -144,6 +148,8 @@ wordcloud2(data = df, shape = 'triangle')
 
 #### 저장
 
+* html로 저장
+
 ```R
 result <- wordcloud2(data=df, fontFamily = "휴먼옛체")
 htmltools::save_html(result,"output/yes24.html")
@@ -157,7 +163,7 @@ htmltools::save_html(result,"output/yes24.html")
 
 ## 예제
 
-```
+```R
 library(KoNLP)
 library(wordcloud2)
 useSejongDic()

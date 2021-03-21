@@ -36,5 +36,14 @@ dev.off()
 
 
 
-* 더 많은 사용법은 RStudio - help 탭 참고!!!
+## 예시 그림
 
+![](C:\Users\H\Desktop\멀캠\R\treemap.PNG)
+
+
+
+---
+
+
+
+... 더 많은 사용법은 RStudio - help 탭 참고!!!

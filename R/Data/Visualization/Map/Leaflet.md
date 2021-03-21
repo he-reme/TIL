@@ -1,5 +1,9 @@
 # leaflet
 
+> 맵을 그려줌
+>
+> `day17.R` 참고
+
 #### 패키지
 
 ```R
@@ -55,7 +59,8 @@ lat <- mk$lat
 msg <- '<strong><a href="http://www.multicampus.co.kr" style="text-decoration:none" >멀티캠퍼스</a></strong><hr>우리가 공부하는 곳 ㅎㅎ'
 
 map <- leaflet() %>% 
-	setView(lng = mk$lon, lat = mk$lat, zoom = 16) %>% addTiles() %>%
+	setView(lng = mk$lon, lat = mk$lat, zoom = 16) %>% 
+	addTiles() %>%
 	addCircles(lng = lon, lat = lat, color='green', popup = msg )
 map
 ```

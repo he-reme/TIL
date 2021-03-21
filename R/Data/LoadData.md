@@ -82,7 +82,9 @@ df <- read.table("패스" [, 옵션])
   * 임의로 지정해줌
   * 첫 번째 줄을 컬럼명으로 지정 : `df <- read.table("패스", head=T)`
 * `stringAsFactors=T` : 문자열은 펙터형으로 읽음
-
+* `header`
+  * `header=T` : 첫번째 행을 열이름으로 읽고싶을 때
+  * `header=F`  : 기본값
 * `read.table("상대패스")`
   * 상대패스 : `data/score.log`
 * `read.csv("절대패스")`

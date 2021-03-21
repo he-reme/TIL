@@ -66,8 +66,8 @@
 
 ### 데이터프레임 변환
 
-* `rbind(df, 벡터)` : 열 연장
-* `cbind(df, 벡터)` : 행 연장
+* `cbind(df, 벡터)` : 열 연장
+* `rbind(df, 벡터)` : 행 연장
 
 * `df$컬럼이름 <- 연산`
 
@@ -184,3 +184,60 @@
 ### 함수
 
 * `mean(df$컬럼이름)` : 해당 컬럼에 대한 전체 평균
+
+
+
+---
+
+
+
+### 데이터프레임 합치기
+
+#### 열단위 합치기
+
+* `cbind(df1. df2)`
+* `bind_cols(df1, df2)`
+
+#### 행단위 합치기
+
+* `rbind(df1, df2)`
+* `bind_rows(df1, df2)`
+
+#### 조인
+
+* basic R 에서는 `merge()`, dplyr 에서는 `join()` 제공
+
+* basicR
+
+  ```R
+  merge(df1, df2)
+  merge(df1, df2, all.x = T)
+  merge(df1, df2, all.y = T)
+  merge(df1, df2, all = T)
+  ```
+
+* dplyr 패키지
+
+  ```
+  XXXX_join(df1, df2, by="열이름")
+  ```
+  * 두 개의 데이터프레임을 선택된 공통의 변수(행 안의 변수, 항목)에 기반해 결합
+  * 열 기준으로 붙임 (왼쪽에서 오른쪽으로)
+  * basic R 에서는 `merge()`, dplyr 에서는 `join()` 제공
+  * 결합하는 경우, 두 개의 인자의 위치에 따른 4가지 결합 기준을 이용할 수 있음
+    * `left_join()`
+      * 왼쪽 자료의 항목을 기준으로 결합
+      * 왼쪽 자료와 동일한 항목이 없는 경우 NA로 채워짐
+      * `merge(test1, test2, all.x = T)`
+    * `right_join()`
+      * 오른쪽 자료의 항목을 기준으로 결합
+      * 오른쪽 자료와 동일한 항목이 없는 경우 NA로 채워짐
+      * `merge(test1, test2, all.y = T)`
+    * `inner_join()`
+      * 두 자료의 공통 항목만을 결합
+      * NA를 만들지 않음
+      * `merge(test1, test2)`
+    * `full_join()`
+      * 두 자료의 모든 항목을 결합
+      * 공통된 항목이 없는 경우 NA로 채워짐
+      * `merge(test1, test2, all = T)`
