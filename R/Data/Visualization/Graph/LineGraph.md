@@ -26,7 +26,8 @@ plot(month,                           # x data
      lty=1,                           # 선의 종류(line type) 선택
      lwd=1,                           # 선의 굵기 선택
      xlab='Month',                    # x축 레이블
-     ylab='Late cnt'                  # y축 레이블
+     ylab='Late cnt',                 # y축 레이블
+     ylim = c(1:20)                   # y축 범위 설정 
 )
 ```
 
@@ -87,3 +88,34 @@ lines(month,                               # x 데이터
 * `lines()` 
   * `plot()` 함수로 작성한 그래프 위에 선을 겹쳐서 그리는 역할
   * 이 함수를 추가할 때마다 선이 하나씩 추가됨
+
+
+
+---
+
+
+
+## 그래프 꾸미기
+
+#### 축 바꾸기
+
+```R
+month <- 1:12                         # 1월 ~ 12월
+late  = c(5,8,7,9,4,6,12,13,8,6,6,4)  # 월별 지각생 수
+plot(month,                           # x data
+     late,                            # y data
+     main='지각생 통계',                # 제목 
+     type='l',                        # 그래프의 종류 선택(알파벳) 
+     lty=1,                           # 선의 종류(line type) 선택
+     lwd=1,                           # 선의 굵기 선택
+     xlab='Month',                    # x축 레이블
+     ylab='Late cnt'                  # y축 레이블
+     axes=F     # 축 눈금 다른거로 쓰고싶으면! 이걸 꼭 해줘야 함.
+)
+axis(1,at=1:12,lab=c("1월","2월","3월","4월","5월", ...)) # x축 눈금 바꾸기
+axis(2, at=late)  # y축 방법1: 위와 동일
+axis(2,ylim=c(0,20)) # y축 방법2: 원래 값으로 나오게 하고싶을 때 
+```
+
+
+

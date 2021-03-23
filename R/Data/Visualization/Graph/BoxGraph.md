@@ -58,8 +58,9 @@ boxplot.stats(dist)
   * `$out`
     * 특이값들의 목록을 저장
 * **특이값**들만 추출
-  * `boxplot.stats(dist)$out`
-
+  
+* `boxplot.stats(dist)$out`
+  
 * 폰트 적용
 
   * 다른 그래프들은 그래프 그릴 때 `family='폰트명'` 추가해서 폰트 적용 할 수 있지만
@@ -126,4 +127,15 @@ boxplot(Petal.Length~Species,            # 자료와 그룹 정보
 
   * `Species`
 
-    
+#### x축 순서 바꾸기
+
+```R
+test$hours <- factor(test$hours, levels = test$hours[1:12]) # x축에 나타낼 것 factor형으로 바꿔주기
+boxplot(fluctuation~hours,            # 자료와 그룹 정보
+        data=test,                       # 자료가 저장된 자료구조
+        main='변동률 이상치 확인',          # 그래프의 제목    
+        col=rainbow(12))  # 상자들의 색
+View(test)
+str(test)
+```
+
