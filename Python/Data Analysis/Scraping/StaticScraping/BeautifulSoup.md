@@ -71,21 +71,22 @@ bs = BeautifulSoup(html_doc, 'html5lib')
   bs = Beautifulsoup(html_doc, 'html.parser')
   ```
 
-* 방법1
+* `<html>`, `<head>`, `<body>` 태그는 제외하고 접근하려는 태그에 **계층 구조**를 적용하여 태그명을 `.` 연산자와 함께 사용
 
-  * `<html>`, `<head>`, `<body>` 태그는 제외하고 접근하려는 태그에 **계층 구조**를 적용하여 태그명을 `.` 연산자와 함께 사용
-
-    ```
-    bs.태그명
-    bs.태그명.태그명
-    bs.태그명.태그명.태그명
-    ```
-
-* 방법2
+  ```
+  bs.태그명
+  bs.태그명.태그명
+  bs.태그명.태그명.태그명
+  ```
   
-  * 메서드로 접근
+* 메서드 사용
 
+  ```python
+  bs.태그명.find_all()
+  bs.find_all()
+  ```
 
+* 혹은... `bs.select()`
 
 ---
 
@@ -156,7 +157,7 @@ bs.태그명.descendants
 
 
 
-## 메서드로 태그 접근
+## 메서드
 
 #### 주요 메서드
 
@@ -188,6 +189,7 @@ find_all(name=None, attrs={}, recursive=True, text=None, limit=None, **kwargs)
 * 정규 표현식 사용하고 싶으면
   
 * `import re`
+  
   * `re.compile()`의 리턴 값으로 넘겨줘야 함
   
 * 예시
@@ -200,7 +202,7 @@ find_all(name=None, attrs={}, recursive=True, text=None, limit=None, **kwargs)
   find_all(id='link2') # id가 link2인 태그를 찾아라
   find_all(id=re.compile("para$")) # id가 para로 끝나는 태그를 찾아라
   find_all(id=True) # id속성이 있는 모든 태그들을 찾아라
-  find_all('a', class_='sister') # a태그를 찾고 class속성이 sister인 태그를 찾아라
+  find_all('a', class_='sister') # a태그를 찾고 class속성이 sister인 태그를 찾아라 클래스의 경우 언더바도 써줘야 함.
   find_all(src=re.compile("png$"), id='link1') # id가 link1인 태그를 찾고, src속성이 png로 끝나는 태그를 찾아라 
   ```
 
@@ -219,7 +221,7 @@ find_all(name=None, attrs={}, recursive=True, text=None, limit=None, **kwargs)
   find_all('p', recursive=False) # 자손은 안찾고 싶으면 False. 기본값은 True
   ```
 
-* 뽑은 태그들 하나씩 접근하기
+* 뽑은 태그가 여러 개일 때 하나씩 접근하기 (자손의 경우엔 for문 사용 안하고 그냥 출력해도 같이 출력됨)
 
   ```python
   tags = bs.find_all(...)
@@ -271,10 +273,111 @@ select(selector, namespaces=None, limit=None, **kwargs)
   select('#아이디명 > 태그명.클래스명')
   select('태그명[속성]')
   select('태그명[속성=값]')
-  select('태그명[속성$=값]')
-  select('태그명[속성^=값]')
+  select('태그명[속성$=값]') # 값으로 끝나는 속성을 가진
+  select('태그명[속성^=값]') # 값으로 시작하는 속성을 가진
   select('태그명:nth-of-type(3)')
   ```
 
   
 
+---
+
+
+
+## 예제
+
+* 다음 뉴스 랭킹에서 뉴스의 제목, 신문사명 스크래핑(50개)하고, `CSV 파일`로 저장
+
+  ```python
+  import requests
+  from bs4 import BeautifulSoup
+  import re
+  
+  r = requests.get("https://news.daum.net/ranking/popular/")
+  r.encoding = "utf-8"
+  bs = BeautifulSoup(r.text, "html.parser")
+  
+  title = bs.select('#mArticle > div.rank_news > ul.list_news2 > li > div.cont_thumb > strong > a')
+  comname = bs.select('#mArticle > div.rank_news > ul.list_news2 > li > div.cont_thumb > strong > span')
+  
+  titleList = []
+  comnameList = []
+  for dom in title :
+       # 콤마가 있으면 구분자로 인식해서 원하는 값이 나오지 않음
+      titleList.append(re.sub("[,]", ' ', dom.string))
+  for dom in comname :
+      comnameList.append(dom.string)
+  print(titleList)
+  print(comnameList)
+      
+  # CSV 파일 쓰기
+  with open("news.csv", "wt", encoding="utf-8") as f:
+      f.write("newstitle,newscomname\n")
+      for index in range(len(titleList)):
+          f.write(titleList[index]+","+comnameList[index]+"\n")
+  ```
+
+* OpenAPI 읽기
+
+  * `xml` 파일 저장
+  * `txt` 파일 쓰기 및 저장
+
+  ```python
+  from bs4 import BeautifulSoup
+  import urllib.request as req
+  import io
+  
+  url = "http://www.kma.go.kr/weather/forecast/mid-term-rss3.jsp?stnId=108"
+  savename = "C:/Temp/forecast.xml"
+  req.urlretrieve(url, savename)
+  
+  xml = open(savename, "r", encoding="utf-8").read()
+  soup = BeautifulSoup(xml, 'html.parser')
+  
+  info = {}
+  for location in soup.find_all("location"):
+      loc = location.find('city').string
+      min_w = location.find_all('tmn')
+      max_w = location.find_all('tmx')
+      weather = [a.string+"~"+b.string for a, b in zip(min_w, max_w)]
+  
+      if not (loc in info):
+          info[loc] = []
+      for data in weather:
+          info[loc].append(data)
+  print(info)
+  
+  with open('C:/Temp/forecast.txt', "wt", encoding="utf-8") as f:
+      for loc in sorted(info.keys()):
+          f.write(str(loc)+'\n')
+          for name in info[loc]:
+              f.write('\t'+str(name)+'\n')
+  ```
+
+* 브라우저로 접근
+
+  * 왠만하면 사용하지 X
+  * 정말 어쩔 수 없을 때.. 상업적 용도가 아닐때 사용
+
+  ```python
+  # 어떤 웹사이트는 스크래핑 싫어해서 막아놓았을 수 있음
+  # 그래서 브라우저 요청처럼 조작하는 것
+  import json
+  import urllib.request
+  
+  #User-Agent를 조작하는 경우 
+  hdr = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '+ 
+          'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.80 Safari/537.36'}
+  
+  req = urllib.request.Request('http://unico2013.dothome.co.kr/crawling/header.php', headers = hdr)
+  #req = urllib.request.Request('http://unico2013.dothome.co.kr/crawling/header.php')
+  data = urllib.request.urlopen(req).read()
+  print(data)
+  #page = data.decode('utf-8', 'ignore')
+  res_content = json.loads(data)
+  
+  print(res_content["result"])
+  
+  ```
+
+  
