@@ -246,5 +246,56 @@ driver.find_elements_by_XXX("XXX에 알맞은 식")
   wfile.close()
   ```
 
-  
+* 스크래핑할 프레임 바꾸고, 스크롤
 
+  ```python
+  #소스2 : 스크롤
+  from selenium import webdriver
+  from selenium.webdriver.common.keys import Keys 
+  
+  driver = webdriver.Chrome('C:/Temp/chromedriver')
+  driver.implicitly_wait(3) 
+  driver.get('https://map.naver.com/') 
+  import time
+  time.sleep(2)
+  
+  target=driver.find_element_by_css_selector(".input_search")
+  
+  target.send_keys('서울시어린이도서관')
+  target.send_keys(Keys.ENTER)
+  
+  time.sleep(2)
+  # iframe 태그를 사용해서 구성된 페이지 (페이지 안에 다른 프레임) 스크래핑 할 때 switch 해야 함
+  driver.switch_to.frame("searchIframe")
+  while True :
+      count = 9
+      while True :
+          print("스크롤 : " +str(count))
+          try :
+              driver.execute_script("var su = arguments[0]; var dom=document.querySelectorAll('#_pcmap_list_scroll_container>ul>li')[su]; dom.scrollIntoView();", count)
+              time.sleep(2)
+          except :        
+              break
+          count += 10
+      names = driver.find_elements_by_css_selector("span._16f7Q")
+      addrs = driver.find_elements_by_css_selector("span._3W_ec")
+      if len(names) == 0 :
+          print("추출되는 도서관이 더 이상 없음")
+          break
+      for i in range(len(names)) :
+          print(names[i].text,addrs[i].text, sep=", ", end="\n")
+      print("------------------------------------------------")
+      linkurl = '#app-root > div > div > div._2ky45 > a:nth-child(7)'
+      try :
+          linkNum = driver.find_element_by_css_selector(linkurl)
+      except :
+          print("더 이상 다음 페이지 없음")
+          break
+      linkNum.click()  
+      time.sleep(5)
+  print("스크래핑 종료")
+  
+  #driver.quit()
+  ```
+
+  

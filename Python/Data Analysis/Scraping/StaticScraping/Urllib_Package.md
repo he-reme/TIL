@@ -235,6 +235,48 @@ from urllib.parse
 
 
 
+---
+
+
+
+#### `urllib.parse.quote()`
+
+> 특정 Value값만 URL 문자열로 변환하고 싶을 때
+>
+> `urllib.parse.urlencode` 는 딕셔너리 형태로 Value 입력
+
+* `urllib.parse.quote()`
+  * `urllib.parse.quote('가나다ABC123')`
+    * `%EA%B0%80%EB%82%98%EB%8B%A4ABC123`
+  * `urllib.parse.quote('가나다 ABC123')`
+    * `%EA%B0%80%EB%82%98%EB%8B%A4%20ABC123`
+* `urllib.parse.quote_plus()`
+  * Value값에 공백이 있을 때 이거 사용!
+  * `urllib.parse.quote_plus('가나다ABC123')`
+    * `%EA%B0%80%EB%82%98%EB%8B%A4ABC123`
+  * `urllib.parse.quote_plus('가나다 ABC123')`
+    * `%EA%B0%80%EB%82%98%EB%8B%A4+ABC123`
+
+ #### 사용 (차이점)
+
+```python
+query_str1 = "q="+urllib.parse.quote('가나다')
+query_str2 = "q="+urllib.parse.quote_plus('가나다')
+query_str3 = urllib.parse.urlencode({"q" : "가나다"})
+
+print(query_str1)
+print(query_str2)
+print(query_str3)
+```
+
+```
+q=%EA%B0%80%EB%82%98%EB%8B%A4
+q=%EA%B0%80%EB%82%98%EB%8B%A4
+q=%EA%B0%80%EB%82%98%EB%8B%A4
+```
+
+
+
 
 ---
 

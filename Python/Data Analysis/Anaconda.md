@@ -43,7 +43,7 @@
 2. `jupyter notebook --generate-config` 명령 실행
    
 * 설정 파일 생성
-   
+  
 3. `C:\Users\H\.jupyter` 경로를 찾아간다.
 
    * 컴퓨터에 따라 사용자이름(`H`)은 다름
@@ -144,6 +144,10 @@
 
 * `pydatavenv` 가상환경 활성화된  `Anaconda Prompt` 창에서 아래 명령들 하나씩 입력
 
+  * 가상환경 활성화 : `conda activate pydatavenv`
+  
+* 크롤링을 위한 패키지
+
   ```shell
   conda install requests
   conda install pillow
@@ -154,7 +158,31 @@
   pip install tweepy
   ```
 
+* 시각화를 위한 패키지
+
+  ```shell
+  conda install pandas
+  conda install matplotlib
+  conda install seaborn
+  pip install folium
+  conda install scikit-learn
+  conda install xlrd
+  conda install -c conda-forge googlemaps
+  conda install openpyxl
+  ```
+
+  * 패키지 설치 잘 안될 때, `pyzmq` 삭제 후 재설치 
+
+    ```
+    pip uninstall pyzmq
+    pip install pyzmq
+    ```
+
 * `conda list` 로 설치한 패키지 확인 가능
+
+* 설치가 완료됐으면 `pydatavenv` 비활성화
+
+  * 가상환경 비활성화 : `conda deactivate`
 
 #### 동적 크롤링을 위한 환경설정
 
