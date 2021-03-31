@@ -9,12 +9,15 @@ df = pandas.DataFrame(딕셔너리)
 ```
 
 * 딕셔너리
+  
   * 여러 개의 리스트를 원소로 갖는 딕셔너리를 주로 활용
 * 딕셔너리의 값 (리스트) → 시리즈로 변환
+  
   * 데이터프레임의 각 열이 됨
 * 딕셔너리의 키 → 시리즈의 이름으로 변환
-  * 데이터프레임의 열 이름이 됨
-
+  
+* 데이터프레임의 열 이름이 됨
+  
 * 예시
 
   ```python
@@ -23,7 +26,72 @@ df = pandas.DataFrame(딕셔너리)
   df = pd.Dataframe(dict_data)
   ```
 
+#### 출력
 
+* 예쁘게 출력
+
+  ```python
+  display(df)
+  ```
+  * `print(df)` 대신 사용
+
+* 앞에서 부터 n개 출력
+
+  ````python
+  df.head(n)
+  ````
+
+* 뒤에서 부터 n개 출력
+
+  ```python
+  df.tail(n)
+  ```
+
+#### 기본 정보 보기
+
+* 정보 확인
+
+  ```python
+  df.info()
+  ```
+
+* 자료형 확인
+
+  ```
+  df.dtypes
+  df.열이름.dtypes
+  ```
+
+* `(행, 열)` 크기 확인
+
+  ```python
+  df.shape
+  ```
+
+* 각 열이 가지고 있는 원소 갯수 확인
+
+  ```python
+  df.count()
+  ```
+
+* 특정 열이 가지고 있는 고유값마다의 갯수 확인
+
+  ```python
+  df.열이름.value_counts()
+  ```
+
+  * like.. R의 `factor`?
+  * 예시 : 직무별 인원수 출력
+
+* 요약 통계량 확인
+
+  ```python
+  df.describe()
+  ```
+
+  * 옵션
+    * `include='all'`
+    * 
 
 ---
 
@@ -208,6 +276,7 @@ pandas.DataFrame(2차원 배열, index=행 인덱스 배열, columns=열 이름 
 * `df.reindex(새로운 인덱스 리스트)`
   * 데이터프레임의 행 인덱스를 새로운 배열로 재지정
   * 기존 데이터프레임에 존재하지 않는 행 인덱스가 새롭게 추가되는 경우, 그 행의 데이터값은 `NaN(결측치)`로 채워짐
+    * `fill_value=0` 사용 가능
   * 새로운 데이터프레임 객체를 반환
     * `inplace=True` 사용 가능
 * `df.reset_index()`
@@ -231,7 +300,7 @@ pandas.DataFrame(2차원 배열, index=행 인덱스 배열, columns=열 이름 
     * `True` : 오름차순 (기본값)
     * `False` : 내림차순
   * 새롭게 정렬된 데이터프레임 객체 반환
-    * `inplace=True` 사용 가능
+    * `inplace=True` 사용 가능 : 원본에 적용
 
 * `df.sort_values(by='열이름')`
   * 열 기준으로 정렬
@@ -239,7 +308,7 @@ pandas.DataFrame(2차원 배열, index=행 인덱스 배열, columns=열 이름 
     * `True` : 오름차순 (기본값)
     * `False` : 내림차순
   * 새롭게 정렬된 데이터프레임 객체 반환
-    * `inplace=True` 사용 가능
+    * `inplace=True` 사용 가능 : 원본에 적용
 
 
 
@@ -285,3 +354,102 @@ pandas.DataFrame(2차원 배열, index=행 인덱스 배열, columns=열 이름 
   * `df1.sub(df2, fill_value=0)`
   * `df1.mul(df2, fill_value=0)`
   * `df1.div(df2, fill_value=0)`
+
+
+
+---
+
+
+
+## 통계 함수 적용
+
+#### 평균값
+
+* 모든 열의 평균값
+
+  ```python
+  df.mean()
+  ```
+
+* 특정 열의 평균값
+
+  ```python
+  df['열이름'].mean()
+  ```
+
+#### 중간값
+
+* 모든 열의 중간값
+
+  ```python
+  df.median()
+  ```
+
+* 특정 열의 중간값
+
+  ```python
+  df['열이름'].median()
+  ```
+
+#### 최대값
+
+* 모든 열의 최대값
+
+  ```python
+  df.max()
+  ```
+
+* 특정 열의 최대값
+
+  ```python
+  df['열이름'].max()
+  ```
+
+#### 최소값
+
+* 모든 열의 최소값
+
+  ```python
+  df.min()
+  ```
+
+* 특정 열의 최소값
+
+  ```python
+  df['열이름'].min()
+  ```
+
+#### 표준편차
+
+* 모든 열의 표준편차
+
+  ```python
+  df.std()
+  ```
+
+* 특정 열의 표준편차
+
+  ```python
+  df['특정열'].std()
+  ```
+
+#### 상관계수
+
+* 모든 열의 상관계수
+
+  ```python
+  df.corr()
+  ```
+
+* 특정 열의 상관계수
+
+  ```python
+  df[['특정열1', '특정열2']].corr()
+  ```
+
+
+
+---
+
+
+
