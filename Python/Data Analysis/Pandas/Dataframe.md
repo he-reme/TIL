@@ -363,6 +363,12 @@ pandas.DataFrame(2차원 배열, index=행 인덱스 배열, columns=열 이름 
 
 ## 통계 함수 적용
 
+#### 인덱스 마다의 합
+
+```python
+df.sum()
+```
+
 #### 평균값
 
 * 모든 열의 평균값
@@ -447,9 +453,31 @@ pandas.DataFrame(2차원 배열, index=행 인덱스 배열, columns=열 이름 
   df[['특정열1', '특정열2']].corr()
   ```
 
+#### 람다 함수 사용
+
+```python
+df.columns.map(lambda x : str(x)+'년')
+```
+
 
 
 ---
 
 
+
+## NaN 값 처리
+
+* 누락값(NaN)을 0으로 채움
+
+  ```python
+  df.fillna(0, inplace=True)
+  ```
+
+* 누락값(NaN)을 앞 데이터로 채움
+
+  ```python
+  df = df.fillna(method='ffill')
+  ```
+
+  * 병합된 부분이어서 NaN으로 값이 들어간 경우
 
