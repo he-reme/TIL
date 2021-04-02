@@ -139,7 +139,9 @@ plot([x], y, [format1], [x2], y2, [format2], ... , **kwargs)
 * 그래프 그리기
 
   ```python
-  plt.plot(x, y)
+  plt.plot(...) #1
+  plt.bar(...) #2
+  df.plot(kind='bar', ...) #3
   ```
 
 * x축, y축 범위 지정
@@ -434,5 +436,51 @@ plit.subplot(행, 열, 몇번째 행)
 
   
 
+---
 
+
+
+## 칼라맵
+
+* matplotlib에서 제공하는 칼라맵 리스트 확인
+
+  ```python
+  plt.cm.datad.keys()
+  ```
+
+* seaborn의 `color_palette()` 함수로 칼라 확인할 수 있음
+
+  ```python
+  import seaborn as sns
+  sns.color_palette('matplotlib칼라맵', 갯수)
+  ```
+
+  ```python
+  sns.color_palette('pastel1', 10)
+  ```
+
+#### 예시
+
+```python
+import matplotlib.pyplot as plt
+import matplotlib
+import seaborn as sns
+
+data_result = pd.read_csv("./data/cctv_seoul.csv")
+display( data_result.head(3))
+
+data_result.set_index('구별', inplace=True)
+data_result.head()
+
+mycolors = sns.color_palette('hls',len(data_result['CCTV수']))
+
+plt.figure(figsize=(10,10))
+data_result['CCTV수'].plot(kind='barh', grid=True, color=mycolors)
+plt.xlabel('각 구에 설치된 CCTV 댓수', size=15)
+plt.ylabel('구이름', size=15)
+plt.title('구별 CCTV 설치 현황(1)', size=20)
+
+plt.savefig("output/hw1.png") 
+plt.show()
+```
 
