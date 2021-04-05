@@ -286,7 +286,113 @@ dummis = pd.gt_dummies(df['새로추가열'])
 
 * **문자열(object)을 Period로 변환**
 
+  ```
+  df.to_period(freq='M')
+  ```
+
+  * Timestamp 객체를 일정한 기간을 나타내는 Period 객체로 변환
+
+  * `freq` 옵션
+
+    * 기준이 되는 기간을 설정
+    * `D` : 1일의 기간
+    * `M` : 1개월의 기간
+    * `A` : 1년의 기간
+
+  * 예시
+
+    ```python
+    import pandas as pd
+    dates = ['2019-01-01', '2020-03-01', '2021-06-01']
+    
+    # 문자열 배열을 판다스 Timestamp로 변환
+    ts_dates = pd.to_datetime(dates)
+    
+    # Timestamp를 Period로 변환
+    pr_day = ts_dates.to_period(freq='D')
+    pr_month = ts_dates.to_period(freq='M')
+    pr_year = ts_dates.to_period(freq='A')
+    ```
+
+    ```py
+    pr_day : ['2019-01-01', '2020-03-01', '2021-06-01']
+    pr_month : ['2019-01', '2020-03', '2021-06']
+    pr_year : ['2019', '2020', '2021']
+    ```
+
 #### 시계열 데이터 만들기
+
+* Timestamp 배열
+
+  ```python
+  date_range(start, end, periods, freq, tz)
+  ```
+
+  * `date_range()` 
+    * 여러 개의 날짜가 들어 있는 배열 형태의 시계열 데이터를 만들 수 있음
+  * `start` : 시작 날짜
+  * `end` : 끝 날짜. `None` 가능
+  * `periods` : 생성할 Timestamp 갯수
+  * `freq` : 간격
+    * `M` : 월의 마지막 날짜를 생성
+      * 2021-01-31, 2021-02-28, ...
+    * `3M` : 3개월 간격의 마지막 날짜를 생성
+      * 2021-01-31, 2021-04-30, ...
+    * `MS` : 월의 시작일을 생성 
+      * 2021-01-01, 2021-02-01, ...
+  * `tz` : 나라 설정
+    * `Asia/Seoul`
+
+  * `closed` 
+    *  `'left'` : 끝 비포함
+    * 기본값 : 시작, 끝 모두 포함
+
+* Period 배열
+
+  ```python
+  period_range(start, end, periods, freq)
+  ```
+
+  * `period_range()` 
+    * 여러 개의 기간이 들어 있는 시계열 데이터를 만듬
+  * `end` : 주로 `None` 사용하는 듯..
+  * `periods` : 생성할 Peroid 갯수
 
 #### 시계열 데이터 활용
 
+* 연-월-일 날짜 데이터 분리하기
+
+  ```python
+  # 문자열타입의 oldclicktime열을 시계열타입인 Timestamp로 만든 newclicktime열
+  df['newclicktime'] = pd.to_datetime(df['oldclicktime'], format='%Y%m%d%H%M')
+  
+  # 추출하기
+  df['year'] = df['newclicktime'].dt.year
+  df['month'] = df['newclicktime'].dt.month
+  df['day'] = df['newclicktime'].dt.day
+  df['hour'] = df['newclicktime'].dt.hour
+  df['minute'] = df['newclicktime'].dt.minute
+  ```
+
+* 날짜 인덱스 활용
+
+  ```python
+  책 참고 (P212)
+  ```
+
+  
+
+#### freq 옵션
+
+* `D` : 1일
+* `W` : 1주
+* `M` : 월 말
+* `MS` : 월 초
+* `Q` : 분기 말
+* `QS` : 분기 초
+* `A` : 연 말
+* `AS` : 연 초
+* `B` : 휴일 제외
+* `H` : 1시간
+* `T` : 1분
+* `S` : 1초
