@@ -372,6 +372,7 @@ dummis = pd.gt_dummies(df['새로추가열'])
   df['day'] = df['newclicktime'].dt.day
   df['hour'] = df['newclicktime'].dt.hour
   df['minute'] = df['newclicktime'].dt.minute
+  df['weekday'] = df['newclicktime'].dt.weekday
   ```
 
 * 날짜 인덱스 활용
