@@ -456,10 +456,10 @@ plit.subplot(행, 열, 몇번째 행)
   ```
 
   ```python
-  sns.color_palette('pastel1', 10)
+  sns.color_palette('Pastel1', 10)
   ```
 
-#### 예시
+#### 예시1
 
 ```python
 import matplotlib.pyplot as plt
@@ -482,5 +482,42 @@ plt.title('구별 CCTV 설치 현황(1)', size=20)
 
 plt.savefig("output/hw1.png") 
 plt.show()
+```
+
+#### 예시2
+
+```
+import pandas as pd
+from matplotlib import font_manager, rc
+
+font_path = "C:/KHR/PYDATAexam/data/malgun.ttf"   #폰트파일의 위치
+font_name = font_manager.FontProperties(fname=font_path).get_name()
+rc('font', family=font_name)
+
+df = pd.read_csv("C:/KHR/PYDATAexam/data/product_click.log", sep=' ', header=None)
+df.columns = ['클릭날짜', '상품ID']
+```
+
+```python
+import matplotlib.pyplot as plt
+import matplotlib
+import seaborn as sns
+
+ID_group = df.groupby('상품ID')
+productID = []
+clickCount = []
+for key, group in ID_group :
+    productID.append(key)
+    clickCount.append(len(group))
+    
+df_click = pd.DataFrame({'상품ID':productID, '클릭횟수':clickCount})
+df_click.sort_values(by='클릭횟수', ascending=False, inplace=True)
+
+mycolors = sns.color_palette('Pastel1',len(df_click['클릭횟수']))
+plt.figure(figsize=(10,7))
+df_click['클릭횟수'].plot(kind='bar', grid=True, color=mycolors )
+plt.xlabel('상품 ID', size=15)
+plt.ylabel('클릭횟수', size=15)
+plt.title('상품별 클릭 횟수', size=20)
 ```
 
