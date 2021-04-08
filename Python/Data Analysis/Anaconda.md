@@ -178,8 +178,48 @@
     pip install pyzmq
     ```
 
-* `conda list` 로 설치한 패키지 확인 가능
+* opencv 설치 패키지
 
+  ```
+  conda install opencv
+  pip install opencv-python
+  conda install missingno
+  pip install statsmodels
+  ```
+
+* 텍스트분석을 위한 패키지
+
+  ```
+  pip install konlpy
+  pip install wordcloud
+  pip install nltk
+  pip install hgtk
+  pip install netsorkx
+  pip install apriori apyori
+  pip install mlxtend
+  pip install git+https://github.com/haven-jeon/PyKoSpacing.git
+  pip install git+https://github.com/ssut/py-hanspell.git
+  ```
+
+  * jpype 설치
+
+    * `https://www.lfd.uci.edu/~gohlke/pythonlibs/#jpype`
+
+    * `C:\Users\H` 디렉터리에 넣고 확인
+
+      ```
+      dir *.whl
+      ```
+
+    * 확인한 이름으로 다운로드
+
+      ```
+      pip install JPype~~~
+      ```
+
+      
+
+* `conda list` 로 설치한 패키지 확인 가능
 * 설치가 완료됐으면 `pydatavenv` 비활성화
 
   * 가상환경 비활성화 : `conda deactivate`
