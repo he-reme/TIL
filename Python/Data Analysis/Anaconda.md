@@ -217,7 +217,12 @@
       pip install JPype~~~
       ```
 
-      
+* SQL 사용을 위한 패키지
+
+  ```shell
+  pip install pymysql
+  pip install pymongo
+  ```
 
 * `conda list` 로 설치한 패키지 확인 가능
 * 설치가 완료됐으면 `pydatavenv` 비활성화

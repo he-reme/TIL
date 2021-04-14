@@ -40,22 +40,3 @@
   ```mariadb
   delete [from] 테이블명 [where 조건식]
   ```
-
-
-
----
-
-
-
-## SELECT
-
-* 같은 표현
-
-  ```mariadb
-  select * from t where ename = 'King' or ename='Kang' or ename='Kong'
-  select * from t where ename in ('King', 'Kang', 'Kong')
-  select * from t where ename like 'K%'
-  ```
-  * `%` : 0개 이상의 임의의 문자
-  * `_` : 임의의 한 문자
-
