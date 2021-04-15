@@ -55,4 +55,5 @@
   * putty 실행
   * 원하는 폴더에서 해당 명령어 수행
     * `jupyter lab --ip=0.0.0.0 --no-browser --port=8907`
-    * 맨 마지막 URL 복사 후 Chrome에서 열기~!
+    * 맨 마지막 URL 복사(마우스 우클릭) 후 Chrome에서 열기~!
+
