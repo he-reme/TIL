@@ -31,6 +31,9 @@
 
 * **k값에 따라 예측의 정확도가 달라짐**
   * 적절한 K값을 찾는 것이 매우 중요!!
+  * 최적 k 찾기
+    * **k-Fold Cross-validation**
+    * **Cross-Validation** (교차 검증법)
 
 #### 과정
 
@@ -95,34 +98,63 @@
 #### 모형 학습
 
 1. **sklearn** 라이브러리의 **neighbbors 모듈** 사용
-
 2. `KNeighborsClassifier()` 함수로 KNN 분류 모형 객체를 생성하여 변수 knn에 저장
-
    * `n_neighbors` 옵션 : 이웃 숫자 k
-
+   * 최적 k 찾기
+     * **k-Fold Cross-validation**
+     * **Cross-Validation** (교차 검증법)
 3. 훈련 데이터 (`X_train`, `y_train`)를 `fit()` 메소드에 입력하여 모형을 학습시킴
-
 4. 검증 데이터 (`X_test`)를 `predict()` 메소드에 전달하여, 모형이 분류한 예측값을 변수 `y_hat`에 저장
-
 5. 이 값을 실제 값이 들어 있는 y_test와 비교!
 
-   ```python
-   # sklearn 라이브러리에서 KNN 분류 모형 가져오기
-   from sklearn.neighbors import KNeighborsClassifier
-   
-   # 모형 객체 생성 (k=5로 설정)
-   knn = KNeighborsClassifier(n_neighbors=5)
-   
-   # train data를 가지고 모형 학습
-   knn.fit(X_train, y_train)
-   
-   # test data를 가지고 예측(분류)하고 예측값을 y_hat에 저장
-   y_hat = knn.predict(x_test)
-   
-   # 시각적으로 확인해보기
-   print(y_hat[0:10])
-   print(y_test.values[0:10])
-   ```
+```python
+# 최적 k 도출 - Cross Validation 이용
+# 주의 : 컴퓨터 안좋으면 시간 무지 오래 걸림....
+from sklearn.model_selection import cross_val_score
+from sklearn.neighbors import KNeighborsClassifier
+
+k_range = range(1,100) # 1~100 에서 최적 k 찾기
+k_scores = []
+
+for k in k_range :
+    print(k)
+    knn = KNeighborsClassifier(k)
+    scores = cross_val_score(knn, X, y, cv=10, scoring = "accuracy") # 10-fold cross validation
+    k_scores.append(scores.mean())
+    
+```
+
+```python
+# 최적 k를 그래프로 확인    
+plt.plot(k_range, k_scores)
+plt.xlabel('value of K for KNN')
+plt.ylabel('Cross_Validation Accuracy')
+plt.show()
+
+# k_scores 리스트에서 최댓값의 index 구하기 (최적 k 찾기)
+k = k_scores.index(max(k_scores)) + 1
+print(k)
+```
+
+```python
+# 위에서 구한 최적 k로 모델 학습
+
+# sklearn 라이브러리에서 KNN 분류 모형 가져오기
+from sklearn.neighbors import KNeighborsClassifier
+
+# 모형 객체 생성 (최적 k 사용)
+knn = KNeighborsClassifier(n_neighbors=k)
+
+# train data를 가지고 모형 학습
+knn.fit(X_train, y_train)
+
+# test data를 가지고 예측(분류)하고 예측값을 y_hat에 저장
+y_hat = knn.predict(x_test)
+
+# 시각적으로 확인해보기
+print(y_hat[0:10])
+print(y_test.values[0:10])
+```
 
 #### 모형 검증
 
@@ -137,17 +169,17 @@
     print(knn_matrix)
     ```
 
-  * 예시 실행 결과
+  * 예시 실행 결과 (예측할 값의 범주가 2개일 경우임.)
 
     ```
     [[109  16]
      [ 25  65]]
     ```
     * test data 개수(215) 중
-      * TP (0으로 정확히 예측한 개수) : 109
-      * FP (0을 1로 잘못 분류한 개수) : 16
-      * NP (1을 0으로 잘못 분류한 개수) : 25
-      * TN  (1로 정확히 예측한 개수)
+      * TP (True를 True로 정확히 예측한 개수) : 109
+      * FP (False를 True로 잘못 분류한 개수) : 16
+      * NP (True를 False로 잘못 분류한 개수) : 25
+      * TN  (False를 False로 정확히 예측한 개수)
 
 * 모형의 예측 능력을 평가하는 지표 계산
 
@@ -162,10 +194,12 @@
     * 출력하는 지표
       * precision
       * recall
-      * f1-score
+      * f1-score : ★
       * support
 
 #### 분류 모형의 예측력을 평가하는 지표
+
+> 예측할 값의 범주가 2개일 경우를 예시로 듬..
 
 * Confusion Matrix
 
