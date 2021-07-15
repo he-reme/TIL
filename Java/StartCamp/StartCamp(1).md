@@ -6,9 +6,14 @@
 
 1. zulu8.33.0.1-jdk8.0~~
    * jdk 설치 및 환경 변수 설정
-
 2. STS.exe
    * Spring Tool Suite 설치
+3. apache tomcat
+   * STS - Open Perspective - JAVA EE - server  탭 - New Server - [Apache] - [Tomcat v9.0 Server] - Next - Browse - `C:\SSAFY\apache-tomcat-9.0.50`
+   * tomcat server 더블클릭
+     * HTTP/1.1 포트 → 9000 으로 변경
+     * 충돌 날까봐
+   * 그 후 프로젝트 생성~~
 
 <br>
 
@@ -41,6 +46,10 @@
 * [Web], [XML] 탭 아래에 있는 것 모두 다 `UTF-8`로 변경!!
 
 <br>
+
+#### 띄울 웹 브라우저 설정
+
+* STS - Window - Web Browser - [Chrome]
 
 #### `.java` & `.class`
 
@@ -155,6 +164,15 @@ General - Existing Projects into Workspace 형식
 ```java
 System.out.println(변수명)
 System.out.printf("%변수타입", 변수명)
+```
+
+<br>
+
+#### 입력
+
+```java
+Scanner scanner = new Scanner(System.in);
+int n = scanner.nextInt()
 ```
 
 <br>
