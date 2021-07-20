@@ -20,6 +20,7 @@
 
 * `new` 로 생성된 것, `heap` 메모리 영역에 올라감
 * Garbage Collector가 메모리 관리해줌
+* `this` 키워드 사용
 * 예) 배열
 
 <br>
@@ -29,6 +30,8 @@
 * `Java.lang.Math`
 * `Java.lang.System`
 * `Main` 함수
+* 같이 사용하는 클래스 객체..
+* `this` 키워드 사용 불가
 
 <br>
 
