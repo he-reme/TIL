@@ -22,6 +22,12 @@
 
 <br>
 
+#### 주석 단축키
+
+* `ctrl` + `/`
+
+<br>
+
 ---
 
 <br>
@@ -81,6 +87,22 @@ sc = null;
 ```
 
 * 변수 타입에 따라 `sc.nextXXX();`
+
+* 파일을 읽어들여서 입력 받고 싶으면?
+
+  ```java
+  import java.io.FileInputStream;
+  import java.util.Scanner;
+  
+  public static void main(String[] args) throws Exception{
+  		System.setIn(new FileInputStream("input/input.txt"));
+  		Scanner sc = new Scanner(System.in);
+  		int T = sc.nextInt();
+   		...   
+  }
+  ```
+
+  * `throws Exeption` 추가
 
 #### 출력
 

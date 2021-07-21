@@ -89,3 +89,88 @@
 `str.trim()`
 
 <br>
+
+---
+
+<br>
+
+## 클래스의 Set/Get
+
+> private 멤버 변수 다루기
+
+* 이클립스에서 자동으로 생성하기
+  * [Source] - [Generate Getters and Setters] 
+
+<br>
+
+---
+
+<br>
+
+## static
+
+* **static**
+  * `클래스명.XXX`으로 static 붙은 멤버변수, 함수 접근 가능
+* **public**
+  * `public`을 붙여줘야 외부에서도 사용 가능
+
+```java
+public class Calc{
+	public static double PI = 3.14;
+	
+	public static int circle(int r){
+		return r*r;
+	}
+}
+```
+
+```java
+System.out.println(Calc.circle(5)*Calc.PI)
+```
+
+<br>
+
+---
+
+<br>
+
+## 메소드 오버로딩
+
+* 함수명은 같으나 매개변수 갯수나 타입이 다른 경우
+* 리턴 타입은 의미 없음!
+
+<br>
+
+---
+
+<br>
+
+## 매개변수
+
+#### 가변인자
+
+* 배열처럼 처리
+* 매개변수들 중 마지막 위치에서만 사용 가능
+* 가변인자를 사용하는 경우 오버로딩을 안하는 것이 좋다.
+* `변수타입 ... 변수명`
+
+* 예시
+
+  ```java
+  public int func(int x, char c, int ... a) {
+  	int sum = 0;
+  	for(int data : a) {
+  		sum += data;
+  	}
+  	return sum;
+  }
+  ```
+
+<br>
+
+#### `this()`
+
+
+
+---
+
