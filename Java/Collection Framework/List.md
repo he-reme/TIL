@@ -151,3 +151,98 @@ List<String> lList = new LinkedList<>();
 * read only !!!
 
 <br>
+
+---
+
+<br>
+
+## List 순회 방법
+
+```java
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.function.Consumer;
+
+public class Test {
+
+	public static void main(String[] args) {
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(5);
+		list.add(10);
+		list.add(15);
+		list.add(20);
+		
+		// 순회 1
+		for(int i=0; i<list.size(); i++) {
+			System.out.print(list.get(i)+" ");
+		}
+		System.out.println();
+		
+		// 순회 2
+		for(int data : list) {
+			System.out.println(data + " ");
+		}
+		System.out.println();
+		
+		// 순회 3
+		Iterator<Integer> it = list.iterator();
+		while(it.hasNext()) {
+			Integer data = it.next();
+			System.out.print(data + " ");
+		}
+		System.out.println();
+		
+		// 순회 4 : foreach
+		list.forEach(new Consumer<Integer>() {
+			@Override
+			public void accept(Integer t) {
+				System.out.printf("%d", t);
+			}
+		});
+		System.out.println();
+		
+		// 순회 5 : foreach
+		list.forEach ( t -> {System.out.printf("%d", t);});
+	}
+
+}
+```
+
+<br>
+
+---
+
+<br>
+
+## 람다식
+
+```java
+
+list.removeIf(i -> i%2 == 0);
+list.forEach(t -> {System.out.printf("%d ", t);});
+
+list.replaceAll(i->i*10);
+list.forEach(t -> {System.out.printf("%d ", t);});
+
+```
+
+
+
+* `@FunctionalInterface`
+
+  * 추상 메소드가 1개만 있는 클래스
+
+  * 디폴트 메소드는 가능
+
+    ```
+    @FunctionalInterface
+    interface Test {
+    	void exec();
+    	default void exec_default() {} // default 메소드는 가능.
+    }
+    ```
+
+  * 이 클래스인 경우만 람다식으로 사용 가능!!
+
