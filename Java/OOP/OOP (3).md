@@ -249,6 +249,12 @@
 
 * `class Class_Name <T extends Number>`
 
+  ```java
+  class class_Name <T extends Integer>
+  ```
+
+  * `Integer`로 제한
+
 * 인터페이스로 제한할 경우도 `extends` 사용
 
 * 클래스와 함께 인터페이스 제약 조건을 이용할 경우 `&`로 연결

@@ -23,4 +23,19 @@
   return sb.toString(); // "문자열22"
   ```
 
-  
+<br>
+
+#### `contains()`
+
+* 문자열 내에 특정 문자열이 있는지 확인
+
+  ```
+  String str = "김혜림은 천재다";
+  if(str.contains("김혜림"))
+  	System.out.println("있네~~");
+  ```
+
+* 있으면 `true`
+
+* 없으면 `false`
+
