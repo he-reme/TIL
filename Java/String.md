@@ -39,3 +39,31 @@
 
 * 없으면 `false`
 
+<br>
+
+---
+
+<br>
+
+## 문자열을 시간으로
+
+```java
+public class BoxOffice {
+    private Date openDt; // 개봉일
+
+	public Date toDate(String date) {
+        Date dateObj = null;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        
+        try {
+            dateObj = format.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            dateObj = new Date();
+        }
+        return dateObj;
+    }
+}
+
+```
+
