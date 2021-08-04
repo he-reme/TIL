@@ -216,7 +216,7 @@ int[] arr = new int[]{1, 3, 5, 6, 8}
 
 1. 1차 생성
 
-   ```
+   ```java
    int [][] arr = new int[4][]
    ```
 
@@ -233,6 +233,74 @@ int[] arr = new int[]{1, 3, 5, 6, 8}
      ```java
      arr[3] = {1, 2, 3}; // (X)
      ```
+
+<br>
+
+---
+
+<br>
+
+## 정렬
+
+* 오름차순
+
+  `Arrays.sort(arr)`
+
+* 사용자 지정 정렬
+
+  ```java
+  Integer[] arr = {8, 9, 4, 2, 11, 7, 1, 3};
+  Arrays.sort(arr, new Comparator<Integer>(){
+  	@Override
+  	public int compare(Integer a, Integer b){
+  		return b-a;
+  	}
+  });
+  ```
+
+  * 람다식으로 표현
+
+    ```java
+    Arrays.sort(arr, (a, b) -> return b-a;});
+    ```
+
+  * `return a-b` : 오름차순
+  * `return b-a`  : 내림차순
+
+* 객체 정렬
+
+  ```java
+  class Book implements Comparable<Book>{
+  	String title;
+  	int price;
+  	
+      public Book(){}
+      
+  	// price 기준으로 정렬
+  	@Override
+  	public int compareTo(Book a) {
+  		return price - a.price;
+  	}
+  }
+  ```
+
+  
+
+<br>
+
+---
+
+<br>
+
+## String을 배열로
+
+* String을 배열로
+
+  `toArray(str)`
+
+* String을 char 배열로
+
+  `toCharArray(str)`
 
 <br>
 
