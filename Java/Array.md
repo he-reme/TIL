@@ -21,6 +21,8 @@
   * `data_type[] arr = new data_type[length]`
 * `[]`의 위치는 상관 없으나 가급적 타입 바로 뒤에 붙이도록!
 
+<br>
+
 #### 초기화
 
 * 배열을 생성과 동시에 자료형에 대한 default 초기화 진행
@@ -48,6 +50,8 @@
 int[] arr = {1, 3, 5, 6, 8}
 int[] arr = new int[]{1, 3, 5, 6, 8}
 ```
+
+<br>
 
 #### 선언 후 생성 시 초기화 주의
 
@@ -87,13 +91,19 @@ int[] arr = new int[]{1, 3, 5, 6, 8}
 * `index` 번호를 가지고 접근
 * `0`부터 시작
 
+<br>
+
 #### 배열의 크기
 
-* arr.length
+* `arr.length`
+
+<br>
 
 #### 배열 한번에 출력
 
 * `Arrays.toString(arr)`
+
+<br>
 
 #### for-each를 이용한 출력 및 접근
 
@@ -172,6 +182,8 @@ int[] arr = new int[]{1, 3, 5, 6, 8}
   ```java
   int [] d_copy = d.clone();
   ```
+
+<br>
 
 ####  2. 새로 할당
 
