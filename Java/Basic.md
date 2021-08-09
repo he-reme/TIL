@@ -148,6 +148,24 @@ System.out.print();
 
 <br>
 
+#### 형변환
+
+* 변수의 타입을 다른 타입으로 변환하는 것
+* primitive는 primitive끼리, reference는 reference끼리 형 변환 가능
+  * boolean은 다른 기본 타입과 호환되지 않음
+* 명시적 형변환
+  * 값 손실이 발생할 수 있으므로 프로그래머 책임하에 형변환 진행
+* 묵시적 형변환
+  * 자료의 손실 걱정 없으므로 JVM이 서비스 해줌.
+* 방법
+  * `int result = (int)d;`
+
+
+
+
+
+<br>
+
 ---
 
 <br>
@@ -280,6 +298,31 @@ outer : for(int i=0; i<N; i++){
   * outer로 지정된 반복문으로 탈출
 * `continue outer;`
   * outer로 지정된 반복문으로 continue
+
+<br>
+
+---
+
+<br>
+
+## java.util.Scanner
+
+#### 주요 API
+
+* `.hasNext()`
+* `.next()`
+  * white space를 경계로 문자열 읽기
+  * white space가 나오면 중지
+* `.hasNextXXX()`
+* `.nextXXX()`
+  * Int, Float, Double ...
+* `.nextLine()`
+  * 개행 문자까지 읽기
+  * 주의
+    * 앞쪽에서 `nextInt()`로 입력 받았다면, 
+    * `sc.nextLine()` 한번 써주고 이를 써줘야 원하는 입력을 받을 수 있음.
+    * 개행문자가 읽히기 때문 
+* `.next().charAt(0)`
 
 <br>
 
