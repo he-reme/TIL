@@ -39,8 +39,11 @@
 
 * `offer()`
   * enQueue, 추가
+  * `add()`
 * `poll()`
   * deQueue, 삭제
+  * empty인 경우 : 예외 발생 X, null 반환
+  * `remove()` : 예외 발생
 * `isEmpty()`
 * `size()`
 * `peek()`
