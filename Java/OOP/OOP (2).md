@@ -113,6 +113,8 @@
 
   * 2개 이상의 클래스에서 특성을 가져올 때 하나는 상속, 나머지는 멤버 변수로 처리
 
+  *  `has a` 관계
+
     ```java
     public class SpiderMan extends Person {
     	Spider spider;
@@ -217,7 +219,7 @@
 
     2. method의 x를 주석하면?
 
-       "child parent parent"
+       "child child parent"
 
     3. child의 x를 주석하면?
 
@@ -465,7 +467,7 @@
   * 실제 메모리에 있는 객체가 특정 클래스 타입인지를 `boolean`으로 리턴
   * 조상을 무작정 자손으로 바꿀 수 없기 때문에 확인하는 방법
 
-  ```
+  ```java
   Person person = new Person();
   
   // 클래스 타입 확인
@@ -494,7 +496,7 @@
 * SubClass
 
   ```java
-  class SubClass {
+  class SubClass extends SuperClass {
   	String x = "sub";
   	public void method() {
   		System.out.println("sub class method");
@@ -521,6 +523,7 @@
 * **상속 관계에서 객체의 멤버 변수가 중복될 때**
   * 참조 변수의 타입에 따라 연결이 달라짐
 * **상속 관계에서 객체의 메서드가 중복될 때 (메서드가 override 되었을 때)**
+  
   * 무조건 자식 클래스의 메서드가 호출됨
   * 최대한 메모리에 생성된 실제 객체에 최적화 된 메서드가 동작함
 * 실제 사용
@@ -569,3 +572,70 @@
 * 객체가 출력되는 건 결국 Object의 toString 때문이었다!!
 
 <br>
+
+#### 완전 중요한 예시
+
+```java
+class Person{
+	String name = "Person name 변수";
+	Person(){
+		System.out.println("Person 생성자");
+	}
+	void eat(){}
+	void jump(){}
+	public void methodTest() {
+		System.out.println("Person 메소드");
+	}
+}
+
+class SpiderMan extends Person {
+	boolean isSpider;
+	String name = "SpiderMan name 변수";
+	
+	SpiderMan(){
+		System.out.println("Spiderman 생성자");
+	}
+	
+	public void methodTest() {
+		System.out.println("Spiderman 메소드");
+	}
+	void fireWeb(){}
+}
+
+public class Test {
+
+	public static void main(String[] args) {
+		Person sm = new SpiderMan();
+		System.out.println("--------------------------");
+		
+		System.out.println(sm.name);
+		sm.methodTest();
+		System.out.println("--------------------------");
+		
+		SpiderMan sm1 = (SpiderMan) sm;
+		System.out.println(sm1.name);
+		sm1.methodTest();
+	}
+}
+```
+
+* 출력
+
+  ```
+  Person 생성자
+  Spiderman 생성자
+  --------------------------
+  Person name 변수
+  Spiderman 메소드
+  --------------------------
+  SpiderMan name 변수
+  Spiderman 메소드
+  ```
+
+  * 상속 관계에서 **객체의 멤버 변수가 중복될 때**
+    * 참조 변수의 타입에 따라 연결이 달라짐
+  * 상속 관계에서 **객체의 메서드가 중복될 때** (메서드가 override 되었을 때)
+    * 무조건 자식 클래스의 메서드가 호출됨
+
+<br>
+

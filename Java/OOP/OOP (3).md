@@ -30,7 +30,7 @@
 
 <br>
 
-#### abstract 클래스
+#### 추상 클래스 정의
 
 * 상속 전용의 클래스
 
@@ -92,6 +92,18 @@
     	
     	public abstract void method1(int param); // 생략하지 않고 썼을 때
     	void method2(int param); // 생략했을 때
+    }
+    ```
+  
+  * 해당 인터페이스를 implements 해서 사용하면..
+  
+    ```java
+    public Test implements MyInterface {
+    	int MEMBER1; // 다시 재정의해서 사용 가능
+    	public Test() {
+    		MEMBER1 = 12; // 가능
+    		MEMBER2 = 13; // final 선언으로 인해 값 변경시 error
+    	}
     }
     ```
 
@@ -279,6 +291,27 @@
   * 객체 생성 시점에 `T`의 타입 결정
   * **메서드 호출 시점**에 `P`의 타입 결정
 
+  ```java
+  public class Test<T> {
+  	T some;
+  	public Test(T some) {
+  		this.some = some;
+  	}
+  	
+  	public <P> P method(P param) {
+  		System.out.println("클래스 레벨의 T" + some.getClass().getName());
+  		System.out.println("파라미터: " + param.getClass().getName());
+  	}
+  	
+  	public static void main(String[] args) {
+  		Test<String> test = new Test<>("Hello");
+  		test.<Long>method(20L);
+  	}
+  }
+  ```
+  
+  
+  
 * `XXX.<Long>method(20L)`
 
 <br>
@@ -291,3 +324,4 @@
 
 * static으로 정의하면 클래스명만으로도 접근 가능하다.
 * 코딩테스트에서 많이 사용하자 (메모리 사용 줄일 수 있음)
+
