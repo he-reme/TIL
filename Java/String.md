@@ -1,5 +1,16 @@
 # String
 
+* 불변의 성질을 가지고 있음
+
+  ```java
+  String data = "Hi";
+  new_data = data.replace(data.charAt(1), 'e');
+  System.out.println(data); // "Hi"
+  System.out.println(new_data); // "He"
+  ```
+
+<br>
+
 #### 문자열 합치기
 
 * 문자열을 단순히 `+`를 사용해서 합치면 메모리를 효율적으로 사용하는 방법이 아니므로 지양!!!
