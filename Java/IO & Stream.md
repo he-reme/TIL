@@ -430,8 +430,9 @@ new DataInputStream(new BufferedInputStream(new FileInputStream()));
   * 직렬화 할 때의 UID와 역 직렬화 할 때의 UID가 다를 경우 예외 발생
   * 직렬화되는 UID가 설정되지 않았을 경우 컴파일러가 자동 생성
     * 멤버 변경으로 인한 컴파일 시마다 변경 → InvalidClassException 초개
+* 직렬화되는 객체에 대해서 serialVersionUID 설정 권장
 
-  * 직렬화되는 객체에 대해서 serialVersionUID 설정 권장
+<br>
 
 #### ObjectInputStream, ObjectOutputStream
 
@@ -440,7 +441,7 @@ new DataInputStream(new BufferedInputStream(new FileInputStream()));
 * `writeObject(Object obj)`
   * obj를 직렬화해서 출력
 * `ObjectInputStream(InputStream in)`
-  * out을 이용해 ObjectInputStream 객체를 생성
+  * in을 이용해 ObjectInputStream 객체를 생성
 * `readObject()`
   * 직렬화된 데이터를 역직렬화해서 Object로 리턴한다 obj를 직렬화해서 출력
 
