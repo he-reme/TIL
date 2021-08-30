@@ -569,12 +569,487 @@
   * 사용자에게 입력 받을 항목을 정의
   * form tag 내부에 여러 개의 control 요소를 포함
 * `<input>`
-  * 텍스트 box, 체크 box, 라디오 버튼 등 사용자가 데이터를 입력할 수 있도록 함
+  * 텍스트 box, 체크 box, 라디오 버튼 등 사용자가 데이터를 입력할 수 있도록 함.
 * `<textarea>`
-  * 여러 줄의 문자를 입력할 수 있도록 함
+  * 여러 줄의 문자를 입력할 수 있도록 함.
 * `<button>`
   * 버튼을 표시
 * `<select>`
   * select box(드롭다운, 콤보box)를 표시
+  * `<optgroup>`
+    * select box의 각 항목들을 그룹화 함.
+  * `<option>`
+    * select box의 각 항목들을 정의 함.
+* `<label>`
+  * 마우스를 이용하여 `<input>` 항목을 선택 시 편리함을 제공.
+  * `for` 속성을 이용하여 다른 control 요소와 텍스트를 연결시켜서 더 편리하게 선택할 수 있도록 함.
+* `<fieldset>`
+  * 입력 항목들을 그룹화 함.
+
+* `<legend>`
+  * `<fieldset>`의 제목을 지정 함.
+
+<br>
+
+---
+
+<br>
+
+## form
+
+* 사용자가 입력한 자료들을 어떤 방식으로 서버로 전달할 것인지 결정
+
+* 서버에서 어떤 프로그램을 이용해 처리할 것인지 결정
+* `<form [속성="속성값"]> form control </form>`
+* 속성
+  * `method`
+    * 사용자가 입력한 내용을 서버 쪽 프로그램으로 어떻게 넘겨줄지 지정
+    * 속성값
+      * `GET`
+        * URL에 사용자가 입력한 내용이 표시됨
+        * 256 ~ 2048bytes의 데이터만 서버로 전송됨
+      * `POST`
+        * URL에 사용자가 입력한 내용이 표시되지 않음
+        * 사용자의 입력을 표준 입력으로 넘겨주기 때문에 입력 내용의 길이에 제한이 없음
+  * `name`
+    * form의 이름을 지정
+    * 한 문서 안에 여러 개의 `<form>`태그가 있을 경우 구분자로 사용
+  * `action`
+    * `<form>`태그 안의 내용들을 처리해 줄 서버상의 프로그램 지정 (URL)
+  * `target`
+    * `<action>` 태그에서 지정한 스크립트 파일을 현재 창이 아닌 다른 위치에 열도록 지정
+  * `autocomplete`
+    * 자동완성 기능
+    * 기본값 : on
+
+<br>
+
+#### label
+
+* form control에 레이블(텍스트)를 연결
+
+* 사용법
+
+  * `<label [속성="속성값"]> 레이블 <input....> </label>`
+  * `<label for="id이름"> <input id="id이름" [속성="속성값"]> </label>`
+
+* 예시
+
+  ```html
+  <form method="POST" action="login.jsp">
+  <ul type="none">
+  	<li>
+  		<label for="userid"> 아이디: </label>
+  		<input type="text" id="userid" name="userid">
+  	</li>
+  	<li>
+  		<label for="pass"> 비밀번호: </label>
+  		<input type="text" id="pass" name="pass">
+  	</li>
+  	<li><input type="submit" value="로그인"></li>
+  </ul>
+  </form>
+  ```
+
+<br>
+
+#### fieldset, legend
+
+* form 요소를 그룹으로 묶음
+
+* 예시
+
+  ```html
+  <fieldset>
+  	<legend> 필수 입력 </legend>
+      <ul type="none">
+         <li>
+  			<label for="userid"> 아이디: </label>
+  			<input type="text" id="userid" name="userid">
+  		</li>
+          <li>
+  			<label for="pass"> 비밀번호: </label>
+  			<input type="text" id="pass" name="pass">
+  		</li>
+      </ul>
+  </fieldset>
+  <fieldset>
+      <legend> 선택 입력 </legend>
+      <ul type="none">
+         <li>
+  			<label for="phone"> 전화번호: </label>
+  			<input type="text" id="phone" name="phone">
+  		</li>
+          <li>
+  			<label for="address"> 주소: </label>
+  			<input type="text" id="address" name="address">
+  		</li>
+      </ul>
+  </fieldset>
+  ```
+
+<br>
+
+---
+
+<br>
+
+## input
+
+> form 태그 안에 input 태그 작성
+
+#### 개요
+
+* `<input>` tag는 type 속성에 따라 여러 가지 형태로 화면에 표시
+* `<input type="유형" [속성="속성값"]`
+* id 속성
+  * 여러 번 사용된 폼 요소를 구분하기 위해 사용
+  * id 속성값은 최소한 한 개 이상의 문자여야 함. 공백 허용X
+* id & name
+  * 같은 html document에서 id는 하나의 값만 가능
+  * name은 중복 허용
+
+<br>
+
+#### type 속성(유형)
+
+* text
+  * 한 줄의 텍스트를 입력할 수 있는 텍스트 상자
+* password
+  * 비밀번호를 입력할 수 잆는 필드
+  * text가 `*`로 표시됨
+* search
+  * 검색 상자
+  * 박스 오른쪽에 `X`가 있어 텍스트를 쉽게 지울 수 있음
+
+* tel
+  * 전화번호를 입력할 수 있는 필드
+* url
+  * URL 주소를 입력할 수 있는 필드
+* email
+  * 메일 주소를 입력할 수 있는 필드
+* datetime
+  * 국제 표준시(UTC)로 설정된 날짜와 시간
+  * 년, 월, 일, 시, 분, 초, 분할 초
+* datetime-local
+  * 사용자 지역을 기준으로 날짜와 시간
+  * 년, 월, 일, 시, 분, 초, 분할 초
+* date
+  * 사용자 지역을 기준으로 날짜
+  * 년, 월, 일
+
+* number
+  * 숫자를 조절할 수 있는 화살표
+* range
+  * 숫자를 조절할 수 있는 슬라이드 막대
+  * min, max, value(페이지 로딩 시 초기값)
+* color
+  * 색상표
+  * 지원 브라우저 : 파이어폭스, 크롬, 오페라와 안드로이드 브라우저
+    * 그 외는 텍스트 필드로 표시
+* checkbox
+  * 주어진 항목에서 2개 이상 선택 가능한 체크박스
+  * 다중선택
+  * `value` 속성을 주어 값을 설정해줘야 함
+  * `<label>` 태그로 묶어주면 체크박스 말고 텍스트 클릭해도 클릭됨
+    * `<label for="game"><input type="checkbox" name="hooby" id="game" value="게임"> 게임 </label>`
+* radio
+  * 주어진 항목에서 1개만 선택할 수 있는 라디오 버튼
+  * `name`속성의 값이 모두 일치해야 같은 그룹으로 인식함
+  * `value` 속성을 주어 값을 설정해줘야 함
+  * 단일 선택
+* file
+  * 파일을 첨부할 수 있는 버튼
+* hidden
+  * 사용자에게 보이지 않지만 서버로 넘겨지는 값을 설정
+
+<br>
+
+#### type 속성(유형) - 버튼
+
+* `<input type="submit | reset | button" [value="버튼라벨"] [속성="속성값"]>`
+
+* button
+  * 자체 기능은 없는 버튼
+  * 스크립트 함수와 연결해 사용
+    * `onclick` 속성 사용
+    * `onclick="checkValid();"`
+* submit
+  * 사용자가 입력한 form의 정보를 서버로 전송하는 버튼
+* reset
+  * `<input>` 요소에 입력한 모든 정보를 초기화하는 버튼
+* image
+  * submit + image 버튼
+  * `<input type="image" src="img path" alt="대체텍스트" [속성="속성값"]>`
+
+<br>
+
+#### 속성
+
+* autofocus
+  * 페이지를 불러 오자마자 폼의 요소 중에서 원하는 요소에 마우스 커서를 표시
+* placeholder
+  * 텍스트를 입력할 때 도움이 되도록 입력란에 적당한 힌트 내용 표시
+  * 클릭 시 자동으로 내용이 사라짐
+* readonly
+  * 입력란에 텍스트를 사용자가 직접 입력하지 못하게 읽기 전용으로 지정
+  * `readonly`, `readonly="readonly"`, `readonly="true"`로 표현
+* required
+  * form에 data를 입력한 후 submit 클릭 시 data를 서버로 전송하기전 필수 입력 항목을 체크
+  * `required`, `required="required"`로 표현
+* min, max, step
+  * step : 일정 간격 지정
+* size, minlength, maxlength
+  * size : 화면에 보여지는 글자의 길이 지정
+  * minlength, maxlength : 텍스트 입력시 최대, 최소길이 지정
+* height, width
+  * image의 너비와 높이 지정
+* list
+  * `<datalist>`에 미리 정의해 놓은 옵션 값을 `<input>` 안에 나열해 보여줌
+* multiple
+  * type이 `email`, `file`인 경우 두 개 이상의 값을 입력하게 해줌
+  * `<input>` 태그 안에 속성 이름만 표시하면 됨
+
+<br>
+
+---
+
+<br>
+
+## 여러 data 나열
+
+#### dropdown
+
+* 사용자 입력이 아닌 여러 옵션 중에서 선택하는 목록
+
+* `<select>` 태그
+
+  * select box (dropdown) 를 표시
+  * 속성
+    * `size` : 화면에 표시될 dropdown 메뉴의 항목 개수 지정
+    * `multiple` : 브라우저 화면에 여러 개의 옵션이 함께 표시되면서 ctrl 키를 누른 상태로 여러 항목을 선택 (다중선택)
+
+* `<option>` 태그
+
+  * select box에 포함될 항목들을 정의
+  * 속성
+    * `value` : 옵션을 선택했을 때 서버로 넘겨질 값을 지정
+    * `selected` : 화면에 표시될 때 기본으로 선택되어 있는 옵션을 지정
+
+* 예시
+
+  ```html
+  <select name="area">
+      <option value="010" selected="selected"> 핸드폰 </option>
+      <option value="02"> 서울 </option>
+      <option value="031"> 경기도 </option>
+      <option value="041"> 충청도 </option>
+      <option value="051"> 경상도 </option>
+      <option value="061"> 전라도 </option>
+  </select>   
+  ```
+
 * `<optgroup>`
-  * select box의 각 항목들을 그룹화 함.
+
+  * dropdown 목록에서 여러 항목들을 몇 가지 그룹으로 묶을 경우
+
+  * `label` 속성을 이용하여 그룹의 제목을 지정
+
+  * 예시
+
+    ```html
+    <label for="chanel"> 선호채널 </label>
+    <select id="chanel" name="chanel">
+        <optgroup label="지상파">
+        	<option value="mbc"> MBC </option>
+            <option value="kbs" selected="selected"> KBS </option>
+        	<option value="sbs"> SBS </option>
+        </optgroup>
+        <optgroup label="종합편성채널">
+        	<option value="jtbc"> JTBC </option>
+            <option value="tvn"> TVN </option>
+            <option value="ytn"> YTN </option>
+        </optgroup>
+    </select>
+    ```
+
+<br>
+
+#### datalist
+
+* `<input>`과 함께 사용
+
+* 텍스트필드에 직접 값을 입력하는 것이 아닌 datalist의 선택 값이 텍스트 필드에 입력됨
+
+* ```html
+  <input type="text" list="datalist_id">
+  <datalist id="datalist_id">
+  	<option>...</option>
+      <option>...</option>
+      ...
+  </datalist>
+  ```
+
+* `<option>` 속성
+
+  * `value` : 사용자가 레이블을 선택했을 때 서버로 넘겨질 값 지정
+  * `label` : 사용자를 위해 브라우저에 표시할 레이블. 따로 지정하지 않을 경우, value값을 레이블로 사용
+
+* 예시
+
+  ```html
+  <label for="bbteam"> 응원팀 </label>
+  <input type="text" id="bbteam" list="teamlist">
+  <datalist id = "teamlist">
+  	<option value="bears" label="두산베어스"></option>
+      <option value="tigers" label="KIA타이거즈"></option>
+      <option value="dinos" label="NC다이노스"></option>
+      ...
+  </datalist>
+  ```
+
+<br>
+
+---
+
+<br>
+
+## 기타 form control
+
+#### button
+
+* `<button>`태그
+  * type 속성은 버튼이 활성화 되었을 때 어떤 동작을 할지 지정
+  * 기본은 `submit` 
+    * `<form>` 태그 내에 사용한다면
+* `<button [type="submit|reset|button"]> 내용 </button>`
+* `<input>` VS `<button>` 
+  * contents를 포함할 수 있음
+  * 아이콘 추가, CSS를 이용하여 원하는 형태로 꾸밀 수 있음
+
+<br>
+
+#### progress
+
+* 작업의 진행 상태를 표시
+
+* `<progress value="값" [max="값"]></progress>`
+  * 작업의 시작을 0, 최종 완료를 최대값으로 지정
+* 속성
+  * `value`
+    * 작업 진행 상태를 나타냄
+    * 부동 소수점으로 표현
+    * 0보다 크거나 같고 max보다는 작거나 같아야 함
+    * max defult 값 : 1.0
+  * `max`
+    * 작업이 완료되려면 얼마나 많은 작업을 해야 하는지 부동 소수점으로 표현
+    * 0보다 커야함
+
+<br>
+
+#### meter
+
+* 값이 차지하는 크기 표시
+* `<meter value="값" [속성="속성값"]></meter>`
+* `<progress>` VS `<meter>`
+  * 결과화면은 비슷
+  * `<progress>` : 작업 진행 상황을 나타냄
+  * `<meter>` : 전체 크기 중에서 얼마나 차지하는지를 표현
+
+* 속성
+  * `min`, `max` 
+    * 범위의 최소, 최대값 지정
+    * default : 0과 1
+  * `value`
+    * 범위 내에서 차지하는 값
+  * `low`, `high`
+    * "이 정도면 낮다/높다" 라고 할 정도의 값을 지정
+  * `optimum`
+    * "이 정도면 적당하다" 라고 할 정도의 범위 지정
+    * optimum 값이 high 값보다 크다면 value 값이 클수록 좋고
+    * optimum 값이 low 값보다 작다면 값이 작을수록 좋음
+
+* 예시
+
+  ```html
+  <ul>
+      <li>
+      	<label> 점유율 : 0.8 </label>
+          <!-- 전체크기 1을 기주으로 0.8만큼을 차지함을 의미 -->
+          <meter value="o.8"></meter>
+      </li>
+  	<li>
+      	<label> 트래픽 : 초과 </label>
+          <!-- 전체크기는 1024~10240 인데, 높다고 설정한 8192보다 현재 값 9216이 더 크다는 것을 의미 -->
+          <meter min="1024" max="10240" low="2048" high=8192 value="9216"></meter>
+      </li>
+      <li>
+      	<label> 트래픽 : 적절 </label>
+          <!-- 전체 1 중에서 현재 0.5를 차지하고 있으며 적정도를 0.8로 설정함을 의미 -->
+          <meter value="0.5" optimum="0.8"></meter>
+      </li>
+  </ul>
+  ```
+
+<br>
+
+---
+
+<br>
+
+## 공간 분할 태그
+
+<br>
+
+#### div & span
+
+* div
+
+  * **block 형식**으로 공간을 분할
+  * 웹사이트의 레이아웃(전체 틀)을 만들 때 사용
+  *  `div` 태그를 사용하여 각각의 블록(공간)을 알맞게 배치하고 CSS를 활용하여 스타일 적용
+
+* span
+
+  * **inline 형식**으로 공간을 분할
+  * `<div>`와 `<p>`태그와 함께 웹페이지의 일부분에 스타일을 적용하기 위해 사용
+
+* 차이점
+
+  * `div`
+    * 자동 줄 바꿈이 일어나면서 세로로 나열
+    * 동일한 문장을 감쌌을 때
+      * **박스 형태로 영역이 설정됨**
+      * **그 안에 정렬됨**
+    * margin : 4방향 모두 적용됨
+
+  * `span`
+    * 줄 바꿈이 일어나지 않고 가로로 나열
+    * 동일한 문장을 감쌌을 때
+      * **줄 단위로 영역이 설정됨**
+      * **박스 형태가 아닌 텍스트가 노출되는 영역만 포함**
+      * margin : 양옆으로만 적용됨
+
+<br>
+
+#### block & inline 형식 태그
+
+* block 형식 태그
+
+  * `div` 태그
+  * `h1` ~ `h6` 태그
+  * `p` 태그
+
+  * `목록` 태그
+  * `table` 태그
+  * `form` 태그
+
+* inline 형식 태그
+
+  * `span` 태그
+
+  * `a` 태그
+  * `input` 태그
+
+  * `글자 형식` 태그
+
