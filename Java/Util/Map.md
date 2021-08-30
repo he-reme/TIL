@@ -17,11 +17,14 @@ Map<keyType, valueType> map = new HashMap<>();
 * `put()`
   * 원소 입력
   * `map.put(key, value);`
-
 * `get()`
   * 키값 기반으로 value값 반환
   * 해당 키값을 가진 요소가 없으면 `null`값 반환
   * `map.get(key)`
+* `containsKey()`
+  * 특정 key가 존재하는지 확인
+  * 해당 키값을 가진 요소가 있으면 `true`, 없으면 `false`값 반환 
+  * `map.containsKey(key)`
 
 <br>
 
