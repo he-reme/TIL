@@ -199,13 +199,6 @@ ORDER BY col_name [ASC|DESC] [,col_name2, ...];
 
 <br>
 
-#### ORDER BY 절
-
-* 정렬
-* 기본값 : ASC
-
-<br>
-
 #### GROUP BY 절
 
 * SELECT문에 사용 가능한 컬럼
@@ -217,6 +210,13 @@ ORDER BY col_name [ASC|DESC] [,col_name2, ...];
 #### Having 절
 
 * 
+
+<br>
+
+#### ORDER BY 절
+
+* 정렬
+* 기본값 : ASC
 
 <br>
 
