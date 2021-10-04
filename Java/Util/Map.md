@@ -43,3 +43,85 @@ while(it.hasNext()) {
 }
 ```
 
+<br>
+
+---
+
+<br>
+
+## 정렬
+
+#### Key 기준 정렬
+
+> `TreeMap` 을 이용하여 쉽게 Key 기준정렬
+
+* 오름차순
+
+  ```
+  TreeMap<Integer, Integer> map = new TreeMap<>();
+  
+  Iterator<Integer> itAsc = map.keySet().iterator(); 
+  while (itDesc.hasNext())
+  {
+  	int key = itDesc.next();
+  	// 코드
+  }
+  ```
+
+* 내림차순
+
+  ```
+  TreeMap<Integer, Integer> map = new TreeMap<>();
+  
+  Iterator<Integer> itDesc = map.descendingKeySet().iterator();
+  while (itDesc.hasNext())
+  {
+  	int key = itDesc.next();
+  	// 코드
+  }
+  ```
+
+<br>
+
+#### Value 기준 정렬
+
+* 오름차순
+
+  ```java
+  Map<Integer, Integer> map = new HashMap<>();
+  List<Integer> keySetDesc = new ArrayList<>(map.keySet());
+  
+  Collections.sort(keySetList, new Comparator<Integer>() {
+  	@Override
+  	public int compare(Integer o1, Integer o2) {
+  		return map.get(o1).compareTo(map.get(o2));
+  	}
+  });
+  
+  for(Integer key : keySetList) {
+  	// 코드
+  }
+  ```
+
+* 내림차순
+
+  ```java
+  Map<Integer, Integer> map = new HashMap<>();
+  List<Integer> keySetDesc = new ArrayList<>(map.keySet());
+  
+  Collections.sort(keySetList, new Comparator<Integer>() {
+  	@Override
+  	public int compare(Integer o1, Integer o2) {
+  		return map.get(o2).compareTo(map.get(o1));
+  	}
+  });
+  
+  for(Integer key : keySetList) {
+  	// 코드
+  }
+  ```
+
+  
+
+
+
