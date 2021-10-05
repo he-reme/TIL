@@ -57,7 +57,7 @@ while(it.hasNext()) {
 
 * 오름차순
 
-  ```
+  ```java
   TreeMap<Integer, Integer> map = new TreeMap<>();
   
   Iterator<Integer> itAsc = map.keySet().iterator(); 
@@ -70,7 +70,7 @@ while(it.hasNext()) {
 
 * 내림차순
 
-  ```
+  ```java
   TreeMap<Integer, Integer> map = new TreeMap<>();
   
   Iterator<Integer> itDesc = map.descendingKeySet().iterator();
