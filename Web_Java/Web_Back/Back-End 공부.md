@@ -15,7 +15,14 @@
 
 2. JSP (XXX.jsp)
 
+3. Cookie & HttpSession
+4. EL & JSTL
 
+<br>
+
+---
+
+<br>
 
 #### Servlet과 JSP
 
@@ -48,3 +55,16 @@
   * JSP에는 HTML
   * Servlet은 java 코드를 짜서
   * forward나 sendRedirect를 사용하여 
+
+<br>
+
+---
+
+<br>
+
+#### EL 과 JSTL
+
+* EL 과 JSTL를 사용하면
+* JSP에 `<% %>` 표현식을 없애줘서 JSP에는 HTML 태그만
+* Servlet에는 Java 코드만
+* 작성하도록 하여 가독성을 높여준다.
