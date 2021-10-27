@@ -57,6 +57,15 @@
 
 <br>
 
+#### 사용
+
+```java
+import java.util.Stack;
+Stack<Integer> stack = new Stack<>();
+```
+
+<br>
+
 ---
 
 <br>
