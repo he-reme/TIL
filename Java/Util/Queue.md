@@ -35,6 +35,8 @@
 * 큐에 필요한 연산을 선언해 놓은 인터페이스
 * LinkedList 클래스를 Queue 인터페이스의 구현체로 많이 사용
 
+<br>
+
 #### 주요 메소드
 
 * `offer()`
@@ -51,6 +53,15 @@
 
 <br>
 
+#### 사용
+
+```java
+import java.util.Queue;
+Queue<Integer> queue = new LinkedList<>();
+```
+
+<br>
+
 ---
 
 <br>
@@ -62,4 +73,90 @@
 * 데이터를 한 곳에서 다른 한 곳으로 전송하는 동안 일시적으로 그 데이터를 보관하는 메모리의 영역
 * 버퍼는 일반적으로 입출력 및 네트워크와 관련된 기능에서 이용됨
 * 순서대로 입력/출력/전달되어야 하므로 FIFO 방식의 자료구조인 큐가 활용됨
-* 
+
+<br>
+
+---
+
+<br>
+
+## 우선순위 큐
+
+*  일반적인 큐의 구조 FIFO(First In First Out)를 가지면서, 
+* 데이터가 들어온 순서대로 데이터가 나가는 것이 아닌 우선순위를 먼저 결정하고 그 **우선순위가 높은 데이터가 먼저 나가는 자료구조**
+* **`PriorityQueue`를 사용하기 위해선** 우선순위 큐에 **저장할 객체는 필수적으로 `Comparable Interface`를 구현해야한다.**
+
+* **`Comparable Interface`를 구현하면 `compareTo` method를 override** 하게 되고 해당 **객체에서 처리할 우선순위 조건을 리턴**해주면 **`PriorityQueue` 가 알아서 우선순위가 높은 객체를 추출** 해준다.
+
+<br>
+
+#### 주요 메소드
+
+* `offer()`
+  * 데이터 삽입
+* `poll()`
+  * 첫번째 값을 반환하고 제거
+  * 큐가 비어있다면 null 리턴
+* `peek()`
+  * 첫번째 값을 반환만 하고 제거X
+  * 큐가 비어있다면 null 리턴
+* `clear()`
+  * 초기화
+
+<br>
+
+#### 사용
+
+```java
+import java.util.PriorityQueue;
+import java.util.Collections;
+
+//낮은 숫자가 우선 순위인 int 형 우선순위 큐 선언
+PriorityQueue<Integer> priorityQueueLowest = new PriorityQueue<>();
+
+//높은 숫자가 우선 순위인 int 형 우선순위 큐 선언
+PriorityQueue<Integer> priorityQueueHighest = new PriorityQueue<>(Collections.reverseOrder());
+```
+
+<br>
+
+#### Compare 적용
+
+* 직접 적용
+
+  ```java
+  PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(5, new Comparator<Integer>() {
+              @Override
+              public int compare(Integer o1, Integer o2) {
+                  return o2.compareTo(o1);
+              }
+  });
+  ```
+
+* 클래스에 적용
+
+  ```java
+  class Person implements Comparable<Person> {
+      String name;
+      int weight;
+  
+      public Person(String name, int weight) {
+          super();
+          this.name = name;
+          this.weight = weight;
+      }
+  
+      @Override
+      public int compareTo(Person target) {
+          if (this.weight > target.weight) {
+              return 1;
+          } else if (this.weight < target.weight) {
+              return -1;
+          }
+          return 0;
+      }
+  }
+  ```
+
+  
+
