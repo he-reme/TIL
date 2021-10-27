@@ -14,9 +14,9 @@
 #### JSP와 Servlet 비교
 
 * JSP
-  * HTML 문서 안에 Java코드를 포함
+  * HTML 문서 안에 Java코드를 포함할 수 있음
 * Servlet 
-  * 자바 코드 안에 HTML을 포함
+  * 자바 코드 안에 HTML을 포함할 수 있음
 
 <br>
 
