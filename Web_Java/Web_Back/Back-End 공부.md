@@ -12,11 +12,10 @@
 #### 공부 순서
 
 1. Servlet (XXX.java)
-
 2. JSP (XXX.jsp)
-
 3. Cookie & HttpSession
 4. EL & JSTL
+5. MVC
 
 <br>
 
@@ -53,8 +52,10 @@
 * 따라서!!!
 
   * JSP에는 HTML
-  * Servlet은 java 코드를 짜서
-  * forward나 sendRedirect를 사용하여 
+    * Client에게 보여주는 화면만 구성
+  * Servlet은 java
+    * Data get, Logic call만
+  * 하도록 하면 좋아용
 
 <br>
 
@@ -68,3 +69,46 @@
 * JSP에 `<% %>` 표현식을 없애줘서 JSP에는 HTML 태그만
 * Servlet에는 Java 코드만
 * 작성하도록 하여 가독성을 높여준다.
+
+<br>
+
+---
+
+<br>
+
+#### MVC
+
+* JSP를 사용한 웹 개발에 MVC 패턴 적용하면!!
+* JSP (HTML)
+  * **View**
+  * Client에게 보여주는 화면만 구성
+  * Servlet에 요청
+  * Client에 응답
+* Servlet (Java)
+  * **Controller**
+  * 클라이언트 요청 분석 후 Data get
+  * Logic call
+  * data를 가지고 Service 호출
+  * 결과에 따른 응답 페이지로 이동
+
+* Service
+  * **Model**
+  * Business Logic
+  * data를 가지고 DAO 호출
+  * 예) 페이징 처리
+* DAO
+  * **Model**
+  * DataBase Logic
+
+* 데이터 전달 시 담는 그릇
+  * **Model**
+  * DTO, VO를 같은 개념으로 보는 곳도 많지만.. 프로젝트에 따라 분리해서 사용하기도 함
+  * DTO
+    * Data Transfer Object
+    * data를 전달할 때 쓰는 데이터 구조
+      * 주로 Data Table 구조 구현할 때
+  * VO
+    * Value Object
+    * 단순한 데이터
+    * Data Table 보다는 내가 조합해서 쓰고 싶을 때 
+
