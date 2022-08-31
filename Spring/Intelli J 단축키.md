@@ -26,3 +26,22 @@
 
 * 최근에 열었던 파일 목록 보기
   * Ctrl + E
+
+* Inline Variable로 만들기
+
+  * Ctrl + Alt + N
+
+  * 이 코드를
+
+    ```java
+    List<Member> result = em.createQuery("select m from Member m", Member.class).getResultList();
+    return result;
+    ```
+
+  * 이 코드로 바꿔줌
+
+    ```java
+    return em.createQuery("select m from Member m", Member.class).getResultList();
+    ```
+
+    
